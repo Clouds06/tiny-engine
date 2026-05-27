@@ -59,12 +59,27 @@ LLM —— **高召回设计**：正信号短路为 true，无信号视为"不�
 
 ---
 
+### [2026-05] Prompt 缓存友好化 —— `convertor.js`
+对应提交：`feat(schema-conversion): make conversion prompt cache-friendly`
+
+**动机**：schema 转换 prompt ~1100 行（含完整 DatePicker 示例），每个组件重发一遍；
+更糟的是原本有一个变量（`relatedSubComponents`）插在 prompt **中间**，导致其后的全部内容
+（含大示例）每次都不同，无法命中前缀缓存。
+
+**改动**：把两处 per-component 变量（关联子组件列表、组件 API 数据）全部挪到末尾**单独一条
+「输入数据」user 消息**，使前面的 system + 巨型指令成为**逐字节稳定的前缀**，命中模型侧
+prefix / context caching（DeepSeek 等自动按前缀缓存），单组件输入 token 显著下降。
+
+**测试**：新增前缀稳定性测试 —— 断言不同输入下 system + 巨型指令逐字节相同、前缀不含任何
+per-component 数据、变量只落在末尾消息。全套 23 例、零密钥。
+
+---
+
 ## 待办 Backlog
 
 ### 第一梯队（小改动、高收益）
 - [x] **结构化输出 + token 计量 + 失败重试** —— 已由统一调用层一次性落地。
-- [ ] **Prompt Caching**：`convertor.js` 的转换 prompt ~1100 行（含完整 DatePicker 示例）
-  每个组件重发一遍。缓存固定协议说明 + few-shot，单组件输入 token 降一个数量级。
+- [x] **Prompt Caching** —— 已落地（见上方 Changelog）。
 
 ### 第二梯队（架构级）
 - [x] **AST / embeddings 预筛**：已落地 SFC 的 AST 预筛（见上方 Changelog）。后续可扩展：

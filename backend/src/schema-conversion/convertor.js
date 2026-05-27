@@ -192,7 +192,7 @@ function initContextAndBuildPrompt(apiObj, relatedSubComponents) {
       - 基础组件（如 ElButton、ElInput）：通过 props 配置业务常用属性（如按钮 type、输入框 placeholder），通过 children 承载文本或辅助组件（如按钮嵌套 Text 组件）。
       - 容器 / 复合组件（如 ElTable、ElForm）：可单独配置 props（如表格用 data/columns 定义数据与列）、单独配置 children（如表单嵌套 ElFormItem），或两者结合，优先匹配组件原生主流用法。
       - **父-子依赖组件（重点）**：若组件为“容器型父组件”，且存在“必须依赖的子组件”（无则无法正常使用），则 **必须在 schema.children 中包含对应子组件**，禁止用 Text 组件替代。
-        - **关联子组件信息**：当前组件的所有关联子组件为：${relatedSubComponents.join(", ")}。
+        - **关联子组件信息**：当前组件的所有关联子组件，见本条指令之后单独提供的「输入数据」消息中的「关联子组件」列表。
         - 构造 schema.children 时，若“容器型父组件”需嵌套子组件，**优先从上述关联子组件中选择**（如 ElTabs 需嵌套 ElTabPane、ElSelect 需嵌套 ElOption）。
     
     - **父-子依赖组件的识别标准**（满足任一即可判定）：
@@ -1175,7 +1175,17 @@ function initContextAndBuildPrompt(apiObj, relatedSubComponents) {
 通过此示例可直观参考**输入原始 API 结构**与**输出 tinyEngine schema 结构**的映射关系，转换时请严格遵循规则对齐。
 
 ### 待转换的组件 API 内容
-组件API内容: ${JSON.stringify(apiObj, null, 2)}`
+组件的 API 数据与关联子组件列表，见下一条「输入数据」消息。`
+    },
+    {
+      // 把所有 per-component 变量集中到末尾这一条消息，使上面的巨型指令成为
+      // 逐字节稳定的前缀，从而命中模型侧的 prefix / context caching，省 token。
+      role: "user",
+      content: `# 输入数据
+关联子组件：${relatedSubComponents.length ? relatedSubComponents.join(", ") : "无"}
+
+组件API内容:
+${JSON.stringify(apiObj, null, 2)}`
     }
   ];
 
@@ -1542,5 +1552,6 @@ async function batchConvertToTinyEngineSchema(
 // 对外导出批量转换函数
 module.exports = {
   batchConvertToTinyEngineSchema,
-  convertSingleSubComponent // 可选导出，供调试单个子组件转换
+  convertSingleSubComponent, // 可选导出，供调试单个子组件转换
+  initContextAndBuildPrompt // 导出供测试：验证 prompt 前缀稳定性
 };
