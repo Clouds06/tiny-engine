@@ -3,6 +3,7 @@ require('dotenv').config({
   path: path.resolve(__dirname, '../../.env')
 });
 const { callLLM } = require('../llm/llm-client');
+const { validateMaterialSchema } = require('./material-schema');
 const fs = require('fs');
 
 /**
@@ -1199,19 +1200,22 @@ ${JSON.stringify(apiObj, null, 2)}`
  * @param {string} subComponentName - 子组件名（用于日志）
  * @returns {Promise<{schemaText: string, duration: number}>} 模型响应 + 耗时（秒）
  */
-async function callOpenAIModel(messages, model, subComponentName) {
+async function callOpenAIModel(messages, model, subComponentName, { client } = {}) {
   // 记录开始时间
   const taskStartTime = Date.now();
   const taskStartISO = new Date(taskStartTime).toISOString();
   console.log(`[任务${subComponentName}] 开始执行 | 时间：${taskStartISO} | 时间戳：${taskStartTime}`);
 
-  // 调用API（经统一 LLM 调用层：json 模式 + 解析失败重试 + token 计量；下游仍做组件级 schema 校验）
+  // 调用API（统一 LLM 调用层）：json 模式 + token 计量 +
+  // 自我修复 —— 用机器可读物料 schema 校验输出，不合规则把错误反馈回模型重试。
   console.log(`[任务${subComponentName} API调用] 向模型${model}发起请求`);
   const { raw: schemaText, usage } = await callLLM({
     messages,
     model,
     temperature: 0.2,
     label: 'schema-convert',
+    validate: validateMaterialSchema,
+    client,
   });
 
   // 记录结束时间
@@ -1581,5 +1585,6 @@ module.exports = {
   batchConvertToTinyEngineSchema,
   convertSingleSubComponent, // 可选导出，供调试单个子组件转换
   initContextAndBuildPrompt, // 导出供测试：验证 prompt 前缀稳定性
-  convertSubComponentWithRetry // 导出供测试：单组件重试 + 软失败
+  convertSubComponentWithRetry, // 导出供测试：单组件重试 + 软失败
+  callOpenAIModel // 导出供测试：schema 自我修复重试
 };
