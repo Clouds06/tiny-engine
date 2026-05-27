@@ -99,6 +99,34 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 **测试**：新增 4 例（重试成功 / 重试耗尽软失败 / 取消传播 / 一个组件失败不拖垮整批），
 注入 mock convertFn，全套 32 例、零密钥。
 
+### [2026-05] 机器可读物料 schema + 自我修复闭环 —— `src/schema-conversion/material-schema.js`
+对应提交：`feat(schema-conversion): machine-readable material schema + self-correction`
+
+**动机**：TinyEngine 物料协议的"输出形态"只散落在 ~1100 行 prompt 文案里，无法程序化校验；
+LLM 产出不合规时也没有自动纠错，只能靠下游报错。
+
+**改动**：
+- `material-schema.js` 把协议核心固化为可程序化校验的 `validateMaterialSchema(input)`
+  （必需 component / name.zh_CN / schema；类型约束 properties 为数组、events/slots 为对象；
+  接受单对象或多组件数组），返回 zod 风格 `{success,error|data}`。
+- 把它接到 `callOpenAIModel` 的统一调用层 `validate` 参数 —— 复用 llm-client 既有的
+  "校验失败→把错误反馈回模型→重试"机制，形成**自我修复闭环**：产出不合规时自动带着具体
+  错误重试，而非直接失败。`callOpenAIModel` 增加可注入 client（测试用）。
+
+**测试**：material-schema 校验器 8 例 + 自我修复（首次不合规→反馈重试→第二次合规）2 例，
+注入 mock client，零密钥。
+
+### [2026-05] Zip Slip 路径穿越防护 —— `extractZipToTempDir`
+对应提交：`fix(security): guard ZIP extraction against Zip Slip`
+
+**动机**：ZIP 上传解压用 `zip.extractAllTo(tempDir, true)`，未校验条目路径，
+恶意压缩包可用 `../` 把文件写到目录外（单文件上传此前已校验，ZIP 没有）。
+
+**改动**：解压前遍历所有条目，校验每个条目 `path.resolve(tempDir, entryName)` 必须落在
+tempDir 内，任一条目逃逸（`../` / 绝对路径）则拒绝整个压缩包。
+
+**测试**：构造带 `../` 穿越条目的压缩包断言被拒、正常压缩包正常解压；2 例，零密钥。
+
 ---
 
 ## 待办 Backlog
@@ -111,8 +139,8 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 - [x] **AST / embeddings 预筛**：已落地 SFC 的 AST 预筛（见上方 Changelog）。后续可扩展：
   `.ts`/`.tsx` 用 `ts-morph` 做更精确的 AST（当前 .ts/.js 仍是正则信号）；或 embeddings 粗筛候选。
 - [x] **Eval 金标准集 + 评分器**：已落地（见上方 Changelog）。
-- [ ] **校验回灌自我修复**：schema 输出后用 zod/ajv 对照 TinyEngine 协议校验，错误回灌让模型 self-correct。
-- [ ] **机器可读 schema**：TinyEngine 物料协议形态散在 prompt 里，协议升级要手改 prompt。
+- [x] **校验回灌自我修复**：已落地（见 Changelog）。
+- [x] **机器可读 schema**：已落地 `validateMaterialSchema`（见 Changelog）。后续可扩展为完整 JSON Schema / zod。
   抽成 JSON Schema / zod 单一定义，prompt 引用它。
 - [ ] **任务持久化 + 队列**：现状内存 `Map`，进程重启即丢、无多实例。改 BullMQ + Redis / DB。
 
@@ -123,6 +151,6 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
   用浏览器 agent 自主定位文档表格，免手填选择器。
 
 ### 其它已知待加固项
-- [ ] ZIP 解压（`adm-zip` `extractAllTo`）未做 Zip Slip 路径穿越防护（单文件上传已校验）。
+- [x] ZIP 解压 Zip Slip 路径穿越防护：已落地（见 Changelog）。
 - [x] `convertor.js` 的 schema 转换批次 `Promise.all` → `allSettled` + 单组件重试/软失败：已落地（见 Changelog）。
 - [ ] 依赖冗余：`langchain` / `sequelize` / `sql.js` 装了未用或半用。
