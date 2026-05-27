@@ -73,6 +73,18 @@ prefix / context caching（DeepSeek 等自动按前缀缓存），单组件输�
 **测试**：新增前缀稳定性测试 —— 断言不同输入下 system + 巨型指令逐字节相同、前缀不含任何
 per-component 数据、变量只落在末尾消息。全套 23 例、零密钥。
 
+### [2026-05] 提取准确率评估（金标准集 + 评分器）—— `eval/`
+对应提交：`feat(eval): add extraction accuracy golden set and scorer`
+
+**动机**：Q7 暴露的硬伤 —— 全仓无任何 eval，提取准确率全靠人工看日志。
+
+**改动**：新增 `eval/score.js`（按 properties/events/slots 三类做名称集合的
+precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/golden/*.json`
+金标准样例、`eval/run-eval.js` 运行器（配 key 后 `node eval/run-eval.js` 跑真实提取并打分）。
+评分器为纯函数，由 `test/eval-score.test.js` 覆盖（5 例，零密钥）。
+
+> 说明：自动评分逻辑已可用；**自我修复（校验回灌让模型 self-correct）** 仍在 backlog。
+
 ---
 
 ## 待办 Backlog
@@ -84,8 +96,8 @@ per-component 数据、变量只落在末尾消息。全套 23 例、零密钥�
 ### 第二梯队（架构级）
 - [x] **AST / embeddings 预筛**：已落地 SFC 的 AST 预筛（见上方 Changelog）。后续可扩展：
   `.ts`/`.tsx` 用 `ts-morph` 做更精确的 AST（当前 .ts/.js 仍是正则信号）；或 embeddings 粗筛候选。
-- [ ] **校验回灌自我修复 + Eval**：schema 输出后用 zod/ajv 对照 TinyEngine 协议校验，
-  错误回灌让模型 self-correct；建金标准组件集自动算提取准确率（当前全仓无 eval）。
+- [x] **Eval 金标准集 + 评分器**：已落地（见上方 Changelog）。
+- [ ] **校验回灌自我修复**：schema 输出后用 zod/ajv 对照 TinyEngine 协议校验，错误回灌让模型 self-correct。
 - [ ] **机器可读 schema**：TinyEngine 物料协议形态散在 prompt 里，协议升级要手改 prompt。
   抽成 JSON Schema / zod 单一定义，prompt 引用它。
 - [ ] **任务持久化 + 队列**：现状内存 `Map`，进程重启即丢、无多实例。改 BullMQ + Redis / DB。

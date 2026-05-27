@@ -1,0 +1,15 @@
+{
+  "component": "ElButton",
+  "note": "金标准样例：inputSource 喂给 generateApiJsonWithLLM，结果与 expected 比对。",
+  "inputSource": "===== 第 1 个文件 - 相对路径：button.vue =====\n<script setup lang=\"ts\">\nconst props = defineProps<{\n  size?: 'large' | 'default' | 'small'\n  type?: string\n  disabled?: boolean\n  loading?: boolean\n}>()\nconst emit = defineEmits<{ (e: 'click', ev: MouseEvent): void }>()\n</script>\n<template>\n  <button><slot /><slot name=\"icon\" /></button>\n</template>\n",
+  "expected": {
+    "properties": [
+      { "name": "size" },
+      { "name": "type" },
+      { "name": "disabled" },
+      { "name": "loading" }
+    ],
+    "events": [{ "name": "click" }],
+    "slots": [{ "name": "default" }, { "name": "icon" }]
+  }
+}
