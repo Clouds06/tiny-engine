@@ -6,14 +6,7 @@ require('dotenv').config({
   path: path.resolve(__dirname, '../../.env')
 });
 const { v4: uuidv4 } = require('uuid');
-const { OpenAI } = require("openai");
-
-// 初始化OpenAI客户端
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
-  baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-  timeout: 600000, // 10分钟超时
-});
+const { callLLM } = require('../llm/llm-client');
 
 // 匹配 "export { 组件名A, 组件名B };" / "export { 组件名A as 组件A别名 };"形式
 const EXPORT_COMPONENTS_PATTERN = /export\s+{\s*([^}]+?)\s*};/;
@@ -505,21 +498,12 @@ ${content}
       },
     ];
 
-    const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "Qwen/Qwen3-32B",
+    const { data: result } = await callLLM({
       messages: promptMessages,
       temperature: 0.1,
-      signal
+      label: 'npm-file-filter',
+      signal,
     });
-
-    if (!completion.choices || completion.choices.length === 0) {
-      throw new Error(`OpenAI returned no choices for file analysis`);
-    }
-    if (!completion.choices[0].message?.content) {
-      throw new Error(`OpenAI returned empty content for file analysis`);
-    }
-
-    const result = JSON.parse(completion.choices[0].message.content);
     return {
       propsFile: result.propsFile ? path.resolve(baseDir, result.propsFile) : null,
       emitsFile: result.emitsFile ? path.resolve(baseDir, result.emitsFile) : null,

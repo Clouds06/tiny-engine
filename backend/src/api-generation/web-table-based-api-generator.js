@@ -1,16 +1,9 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
-const { OpenAI } = require('openai');
+const { callLLM } = require('../llm/llm-client');
 require('dotenv').config({
 	path: path.resolve(__dirname, '../../.env')
-});
-
-// 初始化OpenAI客户端
-const client = new OpenAI({
-	apiKey: process.env.OPENAI_API_KEY || "",
-	baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-	timeout: 600000, // 10分钟超时
 });
 
 // ---------------- 核心工具函数 ----------------
@@ -384,26 +377,16 @@ ${pageTitle}
 	// 4. 调用大模型生成API JSON
 	console.log(`[开始] 调用大模型转换表格数据...`);
 	try {
-		const model = process.env.OPENAI_MODEL || "gpt-4o-mini"; // 推荐使用支持JSON的模型
-		const completion = await client.chat.completions.create({
-			model: model,
+		const { data: apiJsonArray } = await callLLM({
 			messages: promptMessages,
+			model: process.env.OPENAI_MODEL || "gpt-4o-mini", // 推荐使用支持JSON的模型
 			temperature: 0.1, // 低温度确保格式准确
-			max_tokens: 65536, // 足够长度容纳API结构
-			signal
+			validate: (d) => Array.isArray(d), // 必须是数组，否则带反馈重试
+			label: 'url-table-extract',
+			signal,
 		});
 
 		if (signal?.aborted) throw new Error('任务被用户取消');
-
-		// 清理并解析大模型返回
-		const rawResponse = completion.choices[0].message.content.trim();
-		const cleanedResponse = cleanModelResponse(rawResponse, { signal });
-		let apiJsonArray = JSON.parse(cleanedResponse);
-
-		// 验证返回结果必须是数组
-		if (!Array.isArray(apiJsonArray)) {
-			throw new Error(`大模型返回格式错误：期望JSON数组，实际收到${typeof apiJsonArray}`);
-		}
 
 		console.log(`[成功] 大模型转换完成，生成${apiJsonArray.length}个组件API`);
 		return apiJsonArray;

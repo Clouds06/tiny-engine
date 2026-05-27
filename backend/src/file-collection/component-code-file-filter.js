@@ -11,14 +11,7 @@ require('dotenv').config({
   path: path.resolve(__dirname, '../../.env')
 });
 const { v4: uuidv4 } = require('uuid');
-const { OpenAI } = require("openai");
-
-// 初始化OpenAI客户端
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
-  baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-  timeout: 600000, // 10分钟超时
-});
+const { callLLM } = require('../llm/llm-client');
 
 /**
  * 递归获取指定目录下的所有文件路径（跳过 style 文件夹）
@@ -56,7 +49,7 @@ function getAllFiles(dirPath) {
  * @param {string} baseDir - 基准目录（用户输入目录），用于生成相对路径
  * @returns {Promise<{fileName: string, filePath: string, fileLength: number, hasApiInfo: boolean}>}
  */
-async function checkFileWithLLM(filePath, baseDir, { signal } = {}) {
+async function checkFileWithLLM(filePath, baseDir, { signal, client } = {}) {
   try {
     if (signal?.aborted) throw new Error('任务被用户取消');
 
@@ -83,30 +76,18 @@ ${content}
       },
     ];
 
-    const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "Qwen/Qwen3-32B",
+    const { data } = await callLLM({
       messages: promptMessages,
       temperature: 0.2,
-      max_tokens: 65536,
-      signal
+      validate: (d) => typeof d?.hasApiInfo === 'boolean',
+      label: 'file-filter',
+      signal,
+      client,
     });
 
     if (signal?.aborted) throw new Error('任务被用户取消');
 
-    if (!completion.choices?.length || !completion.choices[0].message?.content) {
-      throw new Error('OpenAI 返回内容为空或无 choices');
-    }
-    const responseText = completion.choices[0].message.content.trim();
-
-    let hasApiInfo = false;
-
-    try {
-      const parsed = JSON.parse(responseText);
-      hasApiInfo = parsed.hasApiInfo || false;
-    } catch (e) {
-      // 容错：如果不是 JSON，就简单做个关键词判断
-      hasApiInfo = /true/i.test(responseText);
-    }
+    const hasApiInfo = data.hasApiInfo;
 
     return {
       fileName: path.basename(filePath),

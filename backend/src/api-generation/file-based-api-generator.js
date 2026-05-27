@@ -10,6 +10,7 @@ require('dotenv').config({
 });
 
 const { OpenAI } = require("openai");
+const { callLLM } = require('../llm/llm-client');
 // 导入上一个脚本的核心分析函数
 const { filterAndConcatApiCodeFiles, filterAndConcatUploadedApiSource } = require("../file-collection/component-code-file-filter.js");
 const { filterAndConcatApiNpmFiles, filterAndConcatNpmApiByPackage } = require("../file-collection/component-npm-file-filter.js");
@@ -244,26 +245,20 @@ async function generateApiJsonWithLLM(combinedContent, { signal } = {}) {
   let rawResponse;
   try {
     console.log("🤖 正在调用大模型综合分析API信息...");
-    const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "Qwen/Qwen3-32B",
+    const llmResult = await callLLM({
       messages: promptMessages,
       temperature: 0.1, // 极低温度确保格式准确、结果稳定
-      max_tokens: 65536, // 足够长度容纳完整API结构
-      signal
+      validate: (d) => Array.isArray(d) || (d !== null && typeof d === 'object'),
+      label: 'api-extract',
+      signal,
     });
 
     if (signal?.aborted) {
       throw new Error('任务已终止，大模型返回结果未处理');
     }
 
-    rawResponse = completion.choices[0].message.content.trim();
-    // console.log("📜 大模型完整原始返回：", rawResponse);
-
-    // 清理并提取JSON（调用封装的函数）
-    const cleanJsonText = cleanAndExtractJson(rawResponse, { signal });
-
-    // 3. 解析为JSON对象并返回
-    const apiData = JSON.parse(cleanJsonText);
+    rawResponse = llmResult.raw;
+    const apiData = llmResult.data;
     console.log("✅ 大模型生成API JSON解析成功！");
 
     // 补全缺失的顶级字段（避免大模型遗漏）

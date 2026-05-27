@@ -2,18 +2,8 @@ const path = require('path');
 require('dotenv').config({
   path: path.resolve(__dirname, '../../.env')
 });
-const { OpenAI } = require("openai");
+const { callLLM } = require('../llm/llm-client');
 const fs = require('fs');
-
-// 初始化OpenAI客户端
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("OPENAI_API_KEY is required.");
-}
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
-  baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-  timeout: 6000000
-});
 
 /**
  * 初始化任务上下文并构建Prompt
@@ -1205,31 +1195,23 @@ async function callOpenAIModel(messages, model, subComponentName) {
   const taskStartISO = new Date(taskStartTime).toISOString();
   console.log(`[任务${subComponentName}] 开始执行 | 时间：${taskStartISO} | 时间戳：${taskStartTime}`);
 
-  // 调用API
+  // 调用API（经统一 LLM 调用层：json 模式 + 解析失败重试 + token 计量；下游仍做组件级 schema 校验）
   console.log(`[任务${subComponentName} API调用] 向模型${model}发起请求`);
-  const completion = await client.chat.completions.create({
-    model: model,
+  const { raw: schemaText, usage } = await callLLM({
     messages,
+    model,
     temperature: 0.2,
-    max_tokens: 65536,
+    label: 'schema-convert',
   });
 
-  if (!completion.choices || completion.choices.length === 0) {
-    throw new Error(`OpenAI returned no choices for ${subComponentName}`);
-  }
-  if (!completion.choices[0].message?.content) {
-    throw new Error(`OpenAI returned empty content for ${subComponentName}`);
-  }
-  
   // 记录结束时间
   const taskEndTime = Date.now();
   const taskEndISO = new Date(taskEndTime).toISOString();
   const duration = (taskEndTime - taskStartTime) / 1000;
   console.log(`[任务${subComponentName}] 执行完成 | 时间：${taskEndISO} | 耗时：${duration.toFixed(2)}秒`);
 
-  const schemaText = completion.choices[0].message.content;
   console.log(`[任务${subComponentName} 响应] 生成文本长度：${schemaText.length} 字符`);
-  return { schemaText, duration };
+  return { schemaText, duration, usage };
 }
 
 /**
