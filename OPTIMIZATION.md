@@ -42,6 +42,21 @@ prompt caching、廉价长上下文、成熟的 browser-use / computer-use agent
 **测试**：`backend/test/` 下新增 11 个 `node:test` 用例（mock client、零密钥），
 覆盖解析 / 校验 / 重试 / 降级 / 取消 / 计量与迁移后的 file-filter。运行：`cd backend && npm test`。
 
+### [2026-05] AST 预筛 —— `src/file-collection/ast-api-detector.js`
+对应提交：`feat(file-collection): AST prefilter to skip LLM for obvious API files`
+
+**动机**：源码筛选阶段对**每个文件**都发一次 LLM 判断是否含 API，大组件库调用数爆炸。
+
+**改动**：新增确定性探测器，用 `@vue/compiler-sfc` 解析 SFC，扫描 script/template 中的
+props/emits/slots 信号（`defineProps`/`defineEmits`/`defineSlots`/`withDefaults`、
+Options `props`/`emits`、`<slot>`），并保留入口文件（`index.*`）启发式。`checkFileWithLLM`
+先走探测器：确定命中（或入口文件）就直接返回、**跳过 LLM**；只有 AST 无法确定的文件才回退
+LLM —— **高召回设计**：正信号短路为 true，无信号视为"不确定"而非"无 API"，仍交 LLM 兜底。
+关键修正：扫**原始** `<script>` 文本而非 `compileScript` 输出（后者会把 `defineProps` 等宏编译掉，
+反而扫不到信号）。
+
+**测试**：新增 AST 探测器用例 + 「AST 命中时 LLM 客户端绝不被调用」的反证测试，全套 20 例、零密钥。
+
 ---
 
 ## 待办 Backlog
@@ -52,9 +67,8 @@ prompt caching、廉价长上下文、成熟的 browser-use / computer-use agent
   每个组件重发一遍。缓存固定协议说明 + few-shot，单组件输入 token 降一个数量级。
 
 ### 第二梯队（架构级）
-- [ ] **AST / embeddings 预筛**：现状对每个文件发一次 LLM 判断是否含 API（大组件库调用数爆炸）。
-  用 `@vue/compiler-sfc` / `ts-morph` 做确定性 AST 抽取 props/emits/slots，LLM 只补语义；
-  或 embeddings 粗筛候选。成本从 O(文件数) 降下来。
+- [x] **AST / embeddings 预筛**：已落地 SFC 的 AST 预筛（见上方 Changelog）。后续可扩展：
+  `.ts`/`.tsx` 用 `ts-morph` 做更精确的 AST（当前 .ts/.js 仍是正则信号）；或 embeddings 粗筛候选。
 - [ ] **校验回灌自我修复 + Eval**：schema 输出后用 zod/ajv 对照 TinyEngine 协议校验，
   错误回灌让模型 self-correct；建金标准组件集自动算提取准确率（当前全仓无 eval）。
 - [ ] **机器可读 schema**：TinyEngine 物料协议形态散在 prompt 里，协议升级要手改 prompt。
