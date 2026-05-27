@@ -12,6 +12,7 @@ require('dotenv').config({
 });
 const { v4: uuidv4 } = require('uuid');
 const { callLLM } = require('../llm/llm-client');
+const { detectComponentApi } = require('./ast-api-detector');
 
 /**
  * 递归获取指定目录下的所有文件路径（跳过 style 文件夹）
@@ -57,6 +58,21 @@ async function checkFileWithLLM(filePath, baseDir, { signal, client } = {}) {
     // 生成相对于基准目录的相对路径
     const relativePath = path.relative(baseDir, filePath);
 
+    // 确定性预筛：AST/正则命中 API 信号或入口文件则直接判定，省去一次 LLM 调用。
+    // 仅在无法确定时（decided=false）才回退到 LLM，保证不漏召回。
+    const ast = detectComponentApi(filePath, content);
+    if (ast.decided) {
+      console.log(`🧩 AST 命中 [${ast.signals.join(',')}]，跳过 LLM: ${relativePath}`);
+      return {
+        fileName: path.basename(filePath),
+        filePath: relativePath,
+        fileLength: content.length,
+        hasApiInfo: ast.hasApiInfo,
+        detectedBy: 'ast',
+        signals: ast.signals,
+      };
+    }
+
     const promptMessages = [
       {
         role: "system",
@@ -94,6 +110,7 @@ ${content}
       filePath: relativePath, // 返回相对路径
       fileLength: content.length,
       hasApiInfo,
+      detectedBy: 'llm',
     };
   } catch (error) {
     if (signal?.aborted) throw new Error('任务被用户取消');
