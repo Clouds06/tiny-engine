@@ -1456,7 +1456,7 @@ async function batchConvertToTinyEngineSchema(
   save = true,
   concurrentLimit = 5,
   schemaLogDir = path.resolve(__dirname, '../../schema-log'),
-  { signal } = {}
+  { signal, convertFn = convertSingleSubComponent, retries = 1 } = {}
 ) {
   // 当前函数内检查中断
   if (signal?.aborted) throw new Error('任务已取消');
@@ -1504,27 +1504,23 @@ async function batchConvertToTinyEngineSchema(
       const batchNumber = batchIndex + 1; // 批次号（从1开始）
       console.log(`\n--- 处理批次 ${batchNumber}/${batches.length}（含 ${currentBatch.length} 个子组件）---`);
 
-      // 3. 批次内并行处理每个子组件
-      const batchPromises = currentBatch.map(async (apiObj) => {
-        // 关键节点2：单个组件处理前检查中断
-        if (signal?.aborted) throw new Error('任务被用户取消');
+      // 3. 批次内并行处理每个子组件：单组件带重试，失败软化为 success:false，
+      //    用 allSettled 而非 Promise.all —— 一个组件失败不再拖垮整批。
+      const settled = await Promise.allSettled(
+        currentBatch.map((apiObj) =>
+          convertSubComponentWithRetry(apiObj, model, relatedSubComponents, save, schemaLogDir, { retries, signal, convertFn }),
+        ),
+      );
 
-        const subComponentName = Object.keys(apiObj.components)[0] || 'unknown';
-        try {
-          console.log(`[批次${batchNumber}] 开始转换子组件：${subComponentName}`);
-          const result = await convertSingleSubComponent(apiObj, model, relatedSubComponents, save, schemaLogDir);
-          console.log(`[批次${batchNumber}] 转换成功：${subComponentName}`);
-          return result; // 成功结果（含subComponentName、schema等）
-        } catch (error) {
-          if (error.message.includes('取消')) throw error; // 捕获中断错误
-          throw new Error(`[批次${batchNumber}] 转换失败：${subComponentName} | 原因：${error.message}`);
+      // 4. 收集结果：成功/软失败都进结果集；只有"取消"会以 rejected 冒出，向上传播。
+      for (const r of settled) {
+        if (r.status === 'fulfilled') {
+          conversionResults.push(r.value);
+        } else {
+          if (r.reason && /取消/.test(r.reason.message || '')) throw r.reason;
+          conversionResults.push({ subComponentName: 'unknown', success: false, error: r.reason ? r.reason.message : 'unknown' });
         }
-      });
-
-      // 4. 等待当前批次所有子组件处理完成（并行）
-      const batchResults = await Promise.all(batchPromises);
-
-      conversionResults.push(...batchResults); // 收集当前批次结果
+      }
       console.log(`--- 批次 ${batchNumber}/${batches.length} 处理完成 ---`);
     }
 
@@ -1549,9 +1545,41 @@ async function batchConvertToTinyEngineSchema(
   }
 }
 
+/**
+ * 单子组件转换 + 重试：失败带退避重试，重试耗尽返回软失败（success:false）而非抛出，
+ * 以免在批量场景下一个组件拖垮整批。取消错误照常向上抛。
+ * @param {Function} [opts.convertFn] 实际转换函数（默认 convertSingleSubComponent，测试可注入）
+ */
+async function convertSubComponentWithRetry(
+  apiObj,
+  model,
+  relatedSubComponents,
+  save,
+  schemaLogDir,
+  { retries = 1, signal, convertFn = convertSingleSubComponent } = {}
+) {
+  const subComponentName = Object.keys(apiObj.components || {})[0] || 'unknown';
+  let lastError;
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    if (signal?.aborted) throw new Error('任务被用户取消');
+    try {
+      return await convertFn(apiObj, model, relatedSubComponents, save, schemaLogDir);
+    } catch (error) {
+      if (error.message && error.message.includes('取消')) throw error;
+      lastError = error;
+      if (attempt < retries) {
+        await new Promise((resolve) => setTimeout(resolve, 300 * (attempt + 1)));
+      }
+    }
+  }
+  console.warn(`⚠️ 子组件转换重试 ${retries + 1} 次仍失败，标记软失败：${subComponentName} | ${lastError ? lastError.message : ''}`);
+  return { subComponentName, success: false, error: lastError ? lastError.message : 'unknown' };
+}
+
 // 对外导出批量转换函数
 module.exports = {
   batchConvertToTinyEngineSchema,
   convertSingleSubComponent, // 可选导出，供调试单个子组件转换
-  initContextAndBuildPrompt // 导出供测试：验证 prompt 前缀稳定性
+  initContextAndBuildPrompt, // 导出供测试：验证 prompt 前缀稳定性
+  convertSubComponentWithRetry // 导出供测试：单组件重试 + 软失败
 };

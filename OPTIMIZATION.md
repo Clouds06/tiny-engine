@@ -85,6 +85,20 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 
 > 说明：自动评分逻辑已可用；**自我修复（校验回灌让模型 self-correct）** 仍在 backlog。
 
+### [2026-05] Stage C 批量容错（allSettled + 单组件重试）—— `convertor.js`
+对应提交：`fix(schema-conversion): allSettled + per-component retry in batch convert`
+
+**动机**：schema 转换批次用 `Promise.all`，任一子组件抛错会让整批 reject、丢掉同批其他
+已成功的结果（且与下游"按 success:false 统计"的设计自相矛盾）。
+
+**改动**：单组件转换包一层 `convertSubComponentWithRetry`（失败带退避重试，重试耗尽返回
+`{success:false}` 软失败而非抛出，取消错误照常向上抛）；批次内改用 `Promise.allSettled`，
+成功/软失败都进结果集，仅"取消"以 rejected 向上传播。`batchConvertToTinyEngineSchema`
+新增可注入的 `convertFn` / `retries` 选项，便于单测。
+
+**测试**：新增 4 例（重试成功 / 重试耗尽软失败 / 取消传播 / 一个组件失败不拖垮整批），
+注入 mock convertFn，全套 32 例、零密钥。
+
 ---
 
 ## 待办 Backlog
@@ -110,6 +124,5 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 
 ### 其它已知待加固项
 - [ ] ZIP 解压（`adm-zip` `extractAllTo`）未做 Zip Slip 路径穿越防护（单文件上传已校验）。
-- [ ] `convertor.js` 的 schema 转换批次用 `Promise.all`，单组件失败会拖垮整批；
-  可改 `Promise.allSettled` + 单组件重试/降级。
+- [x] `convertor.js` 的 schema 转换批次 `Promise.all` → `allSettled` + 单组件重试/软失败：已落地（见 Changelog）。
 - [ ] 依赖冗余：`langchain` / `sequelize` / `sql.js` 装了未用或半用。
