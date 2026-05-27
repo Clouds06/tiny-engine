@@ -220,8 +220,19 @@ function extractZipToTempDir(zipBuffer) {
     const tempDir = path.join(os.tmpdir(), `code-component-${Date.now()}-${uuidv4().replace(/-/g, '')}`);
     fs.mkdirSync(tempDir, { recursive: true });
 
-    // 初始化zip实例并解压（自动重建目录结构）
+    // 初始化zip实例
     const zip = new AdmZip(zipBuffer);
+
+    // Zip Slip 防护：解压前校验每个条目解压后必须落在 tempDir 内，
+    // 任一条目通过 ../ 或绝对路径逃逸出目录则拒绝整个压缩包，避免路径穿越写文件。
+    const root = path.resolve(tempDir);
+    for (const entry of zip.getEntries()) {
+      const target = path.resolve(tempDir, entry.entryName);
+      if (target !== root && !target.startsWith(root + path.sep)) {
+        throw new Error(`检测到非法压缩包条目（路径穿越）：${entry.entryName}`);
+      }
+    }
+
     zip.extractAllTo(tempDir, true); // true：覆盖已存在的文件/目录
 
     console.log(`📦 压缩包已解压到临时目录：${tempDir}`);
@@ -447,5 +458,6 @@ module.exports = {
   filterAndConcatApiCodeFiles,
   filterAndConcatUploadedApiSource,
   readAndConcatFiles,
-  saveUploadedFilesToTempDir
+  saveUploadedFilesToTempDir,
+  extractZipToTempDir // 导出供测试：Zip Slip 防护
 };
