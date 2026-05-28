@@ -381,6 +381,8 @@ ${pageTitle}
 			messages: promptMessages,
 			model: process.env.OPENAI_MODEL || "gpt-4o-mini", // 推荐使用支持JSON的模型
 			temperature: 0.1, // 低温度确保格式准确
+			// 这里 prompt 要求"JSON 数组"，与 json_object response_format（要求顶层对象）冲突，关掉。
+			jsonMode: false,
 			validate: (d) => Array.isArray(d), // 必须是数组，否则带反馈重试
 			label: 'url-table-extract',
 			signal,
