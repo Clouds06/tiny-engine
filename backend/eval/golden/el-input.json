@@ -1,0 +1,30 @@
+{
+  "component": "ElInput",
+  "note": "金标准样例：input 组件，典型输入类 API。",
+  "inputSource": "===== 第 1 个文件 - 相对路径：input.vue =====\n<script setup lang=\"ts\">\nconst props = defineProps<{\n  modelValue?: string\n  type?: 'text' | 'textarea' | 'password'\n  placeholder?: string\n  disabled?: boolean\n  clearable?: boolean\n  maxlength?: number\n  size?: 'large' | 'default' | 'small'\n}>()\nconst emit = defineEmits<{\n  (e: 'update:modelValue', v: string): void\n  (e: 'input', v: string): void\n  (e: 'change', v: string): void\n  (e: 'blur', ev: FocusEvent): void\n  (e: 'focus', ev: FocusEvent): void\n  (e: 'clear'): void\n}>()\n</script>\n<template>\n  <div>\n    <slot name=\"prepend\" />\n    <slot name=\"prefix\" />\n    <input :placeholder=\"placeholder\" :disabled=\"disabled\" />\n    <slot name=\"suffix\" />\n    <slot name=\"append\" />\n  </div>\n</template>\n",
+  "expected": {
+    "properties": [
+      { "name": "modelValue" },
+      { "name": "type" },
+      { "name": "placeholder" },
+      { "name": "disabled" },
+      { "name": "clearable" },
+      { "name": "maxlength" },
+      { "name": "size" }
+    ],
+    "events": [
+      { "name": "update:modelValue" },
+      { "name": "input" },
+      { "name": "change" },
+      { "name": "blur" },
+      { "name": "focus" },
+      { "name": "clear" }
+    ],
+    "slots": [
+      { "name": "prepend" },
+      { "name": "prefix" },
+      { "name": "suffix" },
+      { "name": "append" }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "component": "ElTable",
+  "note": "金标准样例：table 容器组件，典型数据展示类 API + 复杂事件/插槽。",
+  "inputSource": "===== 第 1 个文件 - 相对路径：table.vue =====\n<script setup lang=\"ts\">\ninterface TableColumn { prop: string; label: string; width?: number }\nconst props = defineProps<{\n  data: any[]\n  columns: TableColumn[]\n  border?: boolean\n  stripe?: boolean\n  height?: number | string\n  rowKey?: string\n  defaultSort?: { prop: string; order: 'ascending' | 'descending' }\n}>()\nconst emit = defineEmits<{\n  (e: 'selection-change', selection: any[]): void\n  (e: 'select', selection: any[], row: any): void\n  (e: 'select-all', selection: any[]): void\n  (e: 'row-click', row: any, column: TableColumn, ev: MouseEvent): void\n  (e: 'sort-change', s: { prop: string; order: string }): void\n}>()\n</script>\n<template>\n  <table>\n    <slot name=\"empty\" />\n    <slot />\n    <slot name=\"append\" />\n  </table>\n</template>\n",
+  "expected": {
+    "properties": [
+      { "name": "data" },
+      { "name": "columns" },
+      { "name": "border" },
+      { "name": "stripe" },
+      { "name": "height" },
+      { "name": "rowKey" },
+      { "name": "defaultSort" }
+    ],
+    "events": [
+      { "name": "selection-change" },
+      { "name": "select" },
+      { "name": "select-all" },
+      { "name": "row-click" },
+      { "name": "sort-change" }
+    ],
+    "slots": [
+      { "name": "default" },
+      { "name": "empty" },
+      { "name": "append" }
+    ]
+  }
+}
