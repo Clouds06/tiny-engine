@@ -83,12 +83,24 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 金标准样例、`eval/run-eval.js` 运行器（配 key 后 `node eval/run-eval.js` 跑真实提取并打分）。
 评分器为纯函数，由 `test/eval-score.test.js` 覆盖（5 例，零密钥）。
 
-**首次真实运行（2026-05-28，DeepSeek-V3.2 via SiliconFlow，N=1）**：
-ElButton fixture 上 overall F1=1.000（properties / events / slots 三类全命中）。
+**端到端真实数据（2026-05-28，DeepSeek-V3.2 via SiliconFlow，ElButton 级 SFC）**：
+
+| 阶段 | 墙钟 | LLM 调用 | tokens |
+| --- | --- | --- | --- |
+| file-filter（AST 命中→零 LLM）| 0.00s | 0 | 0 |
+| api-extract | 14.38s | 1 | 3,264 (in 2,970 / out 294) |
+| schema-convert | 47.17s | 1 | 11,006 (in 9,733 / out 1,273) |
+| **合计** | **61.56s** | **2** | **14,270** |
+
+- AST 预筛实证生效：2 个文件零 LLM（无 AST 就是 2 次）。
+- schema-convert 占总成本 ~77% tokens / ~76% 时间，正是 Prompt Caching 的目标——
+  其 9,733 入参 tokens 大部分是稳定前缀，命中缓存后可显著下降。
+- 提取准确率（ElButton fixture，N=1）：F1=1.000（properties / events / slots 三类全命中）。
 跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
 同名旧变量盖住，以及 scorer 把 apiJson 的嵌套结构（`components.<Name>.{properties,...}`）
 当作扁平结构读导致 F1 错算为 0（提交 `a2e1853`）。样本量极小，是初步信号而非统计结论；
-扩展更多 fixture 后再看分布。
+扩展更多 fixture 后再看分布。同时新增 `eval/run-pipeline.js`（提交 `cf2fd9c`）作为
+全链路 e2e 探针：跑一遍打印每阶段 token + 耗时，方便后续追踪优化效果。
 
 ### [2026-05] Stage C 批量容错（allSettled + 单组件重试）—— `convertor.js`
 对应提交：`fix(schema-conversion): allSettled + per-component retry in batch convert`
