@@ -99,15 +99,21 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
   **要看公允的话需要 adversarial fixture**（嘈杂源码、Options API 写法、跨文件拆分等），
   目前的样本属于"读名字"级别的下限测试，结果只能说明模型在干净输入下不出错。
 
-**URL 路径端到端真实数据（2026-05-28，element-plus button 文档页）**：
+**URL 路径端到端真实数据（2026-05-28，element-plus × 5 组件批量）**：
 
-| 阶段 | 墙钟 | LLM 调用 | tokens |
-| --- | --- | --- | --- |
-| Puppeteer 加载 + 5 个表格提取 | 占大头 | 0 | 0 |
-| LLM 表格→API JSON 分类 | — | 1 | 3,941 (in 2,532 / out 1,409) |
-| **合计** | **59.08s** | **1** | **3,941** |
+| id | 耗时 (s) | tokens | 子组件数 | 主组件 props / events / slots |
+| --- | --- | --- | --- | --- |
+| button | 56.07 | 3,631 | 2 | 19 / 0 / 3 |
+| input | 99.76 | 6,025 | 1 | 35 / 11 / 5 |
+| form | 82.17 | 5,882 | 2 | 16 / 1 / 1 |
+| select | 188.53 | 9,314 | 5 | 53 / 8 / 8 |
+| table | 210.76 | 16,241 | 2 | 45 / 19 / 3 |
 
-- 提取出 2 个组件条目（Button + ButtonGroup），主组件 props=19 / slots=3。
+分布：5/5 成功；墙钟 min/avg/max **56 / 127 / 211** s；tokens min/avg/max **3.6k / 8.2k / 16.2k**；
+合计 637s · 41,093 tokens（DeepSeek-V3.2 ≈ ¥0.06）。
+
+- token 跨度 **4 倍**，单跑 Button 严重低估实际成本；加权平均 ~8.2k/组件 是更可信的估算。
+- 耗时与 token 都随主组件 API 表面积（props + events + slots 总数）正相关，与文档页大小无关。
 - 跑通中修了一个真 bug：URL 路径要求模型返回**数组**，但 llm-client 默认开 json_object
   response_format 强制顶层对象、校验永远失败 → 重试耗尽。这处调用关闭 jsonMode（提交 `9c3bb8d`）。
 跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
