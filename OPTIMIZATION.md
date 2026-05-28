@@ -95,7 +95,21 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 - AST 预筛实证生效：2 个文件零 LLM（无 AST 就是 2 次）。
 - schema-convert 占总成本 ~77% tokens / ~76% 时间，正是 Prompt Caching 的目标——
   其 9,733 入参 tokens 大部分是稳定前缀，命中缓存后可显著下降。
-- 提取准确率（ElButton fixture，N=1）：F1=1.000（properties / events / slots 三类全命中）。
+- 提取准确率（N=3：ElButton / ElInput / ElTable，全是清晰 macro 风格 SFC）：**全部 F1=1.000**。
+  **要看公允的话需要 adversarial fixture**（嘈杂源码、Options API 写法、跨文件拆分等），
+  目前的样本属于"读名字"级别的下限测试，结果只能说明模型在干净输入下不出错。
+
+**URL 路径端到端真实数据（2026-05-28，element-plus button 文档页）**：
+
+| 阶段 | 墙钟 | LLM 调用 | tokens |
+| --- | --- | --- | --- |
+| Puppeteer 加载 + 5 个表格提取 | 占大头 | 0 | 0 |
+| LLM 表格→API JSON 分类 | — | 1 | 3,941 (in 2,532 / out 1,409) |
+| **合计** | **59.08s** | **1** | **3,941** |
+
+- 提取出 2 个组件条目（Button + ButtonGroup），主组件 props=19 / slots=3。
+- 跑通中修了一个真 bug：URL 路径要求模型返回**数组**，但 llm-client 默认开 json_object
+  response_format 强制顶层对象、校验永远失败 → 重试耗尽。这处调用关闭 jsonMode（提交 `9c3bb8d`）。
 跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
 同名旧变量盖住，以及 scorer 把 apiJson 的嵌套结构（`components.<Name>.{properties,...}`）
 当作扁平结构读导致 F1 错算为 0（提交 `a2e1853`）。样本量极小，是初步信号而非统计结论；
