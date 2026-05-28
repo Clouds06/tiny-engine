@@ -1,0 +1,11 @@
+{
+  "note": "URL 批量 e2e 输入列表。选 element-plus 五个不同形态的常用组件（触发/输入/选择/容器/表格），同一 'table' 选择器适配其文档站结构。",
+  "selector": "table",
+  "items": [
+    { "id": "button", "url": "https://element-plus.org/zh-CN/component/button.html" },
+    { "id": "input",  "url": "https://element-plus.org/zh-CN/component/input.html" },
+    { "id": "select", "url": "https://element-plus.org/zh-CN/component/select.html" },
+    { "id": "form",   "url": "https://element-plus.org/zh-CN/component/form.html" },
+    { "id": "table",  "url": "https://element-plus.org/zh-CN/component/table.html" }
+  ]
+}
