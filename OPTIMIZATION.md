@@ -116,6 +116,38 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 - 耗时与 token 都随主组件 API 表面积（props + events + slots 总数）正相关，与文档页大小无关。
 - 跑通中修了一个真 bug：URL 路径要求模型返回**数组**，但 llm-client 默认开 json_object
   response_format 强制顶层对象、校验永远失败 → 重试耗尽。这处调用关闭 jsonMode（提交 `9c3bb8d`）。
+
+**源码路径端到端真实数据（2026-05-28，element-plus 真实源码 × 5 组件，提交 `282b7fa`）**：
+
+| 组件 | LLM 次数 | tokens | 耗时 (s) | 主组件 P / E / S |
+| --- | --- | --- | --- | --- |
+| button | 8 | 13,988 | 67.39 | 19 / 1 / 3 |
+| input | 5 | 26,764 | 118.17 | 33 / 12 / 5 |
+| select | 7 | 57,032 | 172.72 | 34 / 8 / 8 |
+| form | 8 | 30,333 | 85.60 | 16 / 1 / 1 |
+| table | **32** | **115,330** | 255.54 | 48 / 19 / 3 |
+
+合计 60 次 LLM · 243k tokens · 700s 墙钟（DeepSeek-V3.2 SiliconFlow，约 ¥0.5-1）。
+
+**Table 是异常值**：32 次 LLM 调用、115k tokens，比其他高一个量级。原因是 table
+包文件多（含 table-column / table-header / use-table 等内部 .ts），当前 AST 预筛只
+对 SFC 完整覆盖、`.ts` 仅做正则信号扫描——大量 `.ts` 文件回退到 LLM。**这是 AST
+预筛覆盖度的实际瓶颈**，下一步可用 ts-morph 把 `.ts` 也走真 AST。
+
+### 跨路径对照（URL vs 源码，同 5 组件）
+
+| 组件 | URL P / E / S | 源码 P / E / S | 差异解读 |
+| --- | --- | --- | --- |
+| button | 19 / 0 / 3 | 19 / 1 / 3 | URL 漏原生 `click`（文档不列），源码从 `defineEmits` 捕获 |
+| input | 35 / 11 / 5 | 33 / 12 / 5 | 互有出入，差距小 |
+| select | **53** / 8 / 8 | **34** / 8 / 8 | URL 大概率把 Option/OptionGroup 子组件 props 合到了 Select 上 |
+| form | 16 / 1 / 1 | 16 / 1 / 1 | **完全一致** |
+| table | 45 / 19 / 3 | 48 / 19 / 3 | 源码多 3 个 props（可能内部/未文档化） |
+
+**eval 终于有真信号了**：两条路径的差异不是"对错"，而是揭示**语义边界不同** ——
+源码 = 代码实际定义的全部 props（含内部）；URL = 作者公开承诺的 API 表面（含被
+父组件揉进来的子组件属性，不含原生事件）。这两个视角对低代码物料导入这种"按
+公开 API 来"的场景有真实价值：URL 路径更接近用户预期，源码路径用于交叉验证。
 跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
 同名旧变量盖住，以及 scorer 把 apiJson 的嵌套结构（`components.<Name>.{properties,...}`）
 当作扁平结构读导致 F1 错算为 0（提交 `a2e1853`）。样本量极小，是初步信号而非统计结论；
