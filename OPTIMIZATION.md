@@ -83,7 +83,12 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 金标准样例、`eval/run-eval.js` 运行器（配 key 后 `node eval/run-eval.js` 跑真实提取并打分）。
 评分器为纯函数，由 `test/eval-score.test.js` 覆盖（5 例，零密钥）。
 
-> 说明：自动评分逻辑已可用；**自我修复（校验回灌让模型 self-correct）** 仍在 backlog。
+**首次真实运行（2026-05-28，DeepSeek-V3.2 via SiliconFlow，N=1）**：
+ElButton fixture 上 overall F1=1.000（properties / events / slots 三类全命中）。
+跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
+同名旧变量盖住，以及 scorer 把 apiJson 的嵌套结构（`components.<Name>.{properties,...}`）
+当作扁平结构读导致 F1 错算为 0（提交 `a2e1853`）。样本量极小，是初步信号而非统计结论；
+扩展更多 fixture 后再看分布。
 
 ### [2026-05] Stage C 批量容错（allSettled + 单组件重试）—— `convertor.js`
 对应提交：`fix(schema-conversion): allSettled + per-component retry in batch convert`
