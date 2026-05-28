@@ -12,6 +12,9 @@
 
 const fs = require('fs');
 const path = require('path');
+// 先加载 .env，再做 key 检查（否则会在惰性 require 之前判空）。
+// override:true 让 .env 的值覆盖 shell 里可能存在的旧 OPENAI_* 变量，避免被同名 key 盖住。
+require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
 const { scoreExtraction } = require('./score');
 
 async function main() {
@@ -25,11 +28,22 @@ async function main() {
   const goldenDir = path.resolve(__dirname, 'golden');
   const files = fs.readdirSync(goldenDir).filter((f) => f.endsWith('.json'));
 
+  // 模型按 apiJson 规范返回 { name, components:{ <Name>:{ properties, events, slots, ... } } }，
+  // 真实字段嵌套在 components.<name>，需要先 unwrap 再喂给 scorer。
+  const unwrap = (raw) => {
+    let r = Array.isArray(raw) ? raw[0] : raw;
+    if (r && r.components && typeof r.components === 'object') {
+      const k = Object.keys(r.components)[0];
+      if (k) r = r.components[k] || {};
+    }
+    return r || {};
+  };
+
   const rows = [];
   for (const f of files) {
     const fixture = JSON.parse(fs.readFileSync(path.join(goldenDir, f), 'utf-8'));
     const result = await generateApiJsonWithLLM(fixture.inputSource);
-    const actual = Array.isArray(result) ? result[0] || {} : result || {};
+    const actual = unwrap(result);
     const s = scoreExtraction(fixture.expected, actual);
     rows.push({ component: fixture.component, f1: s.overall.f1, detail: s });
     console.log(`\n[${fixture.component}] overall F1=${s.overall.f1.toFixed(3)} (P=${s.overall.precision.toFixed(3)} R=${s.overall.recall.toFixed(3)})`);
