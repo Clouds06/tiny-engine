@@ -1,0 +1,717 @@
+[
+  {
+    "name": "button",
+    "totalSec": 67.39,
+    "stage1": {
+      "sec": 20.95,
+      "filtered": 5,
+      "files": [
+        {
+          "p": "index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/button-group.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/button-group.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "withDefaults",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/button.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/button.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "defineEmits",
+            "withDefaults",
+            "template-slot"
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "sec": 46.44
+    },
+    "extracted": {
+      "main": "Button",
+      "props": [
+        "size",
+        "disabled",
+        "type",
+        "icon",
+        "nativeType",
+        "loading",
+        "loadingIcon",
+        "plain",
+        "text",
+        "link",
+        "bg",
+        "autofocus",
+        "round",
+        "circle",
+        "dashed",
+        "color",
+        "dark",
+        "autoInsertSpace",
+        "tag"
+      ],
+      "events": [
+        "click"
+      ],
+      "slots": [
+        "default",
+        "icon",
+        "loading"
+      ]
+    },
+    "usage": {
+      "calls": 8,
+      "prompt_tokens": 12744,
+      "completion_tokens": 1244,
+      "total_tokens": 13988,
+      "byLabel": {
+        "file-filter": {
+          "calls": 7,
+          "prompt_tokens": 7210,
+          "completion_tokens": 62,
+          "total_tokens": 7272
+        },
+        "api-extract": {
+          "calls": 1,
+          "prompt_tokens": 5534,
+          "completion_tokens": 1182,
+          "total_tokens": 6716
+        }
+      }
+    }
+  },
+  {
+    "name": "input",
+    "totalSec": 118.17,
+    "stage1": {
+      "sec": 13.86,
+      "filtered": 3,
+      "files": [
+        {
+          "p": "index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/input.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/input.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "defineEmits",
+            "withDefaults",
+            "template-slot"
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "sec": 104.31
+    },
+    "extracted": {
+      "main": "Input",
+      "props": [
+        "id",
+        "size",
+        "disabled",
+        "modelValue",
+        "modelModifiers",
+        "maxlength",
+        "minlength",
+        "type",
+        "resize",
+        "autosize",
+        "autocomplete",
+        "formatter",
+        "parser",
+        "placeholder",
+        "form",
+        "readonly",
+        "clearable",
+        "clearIcon",
+        "showPassword",
+        "showWordLimit",
+        "wordLimitPosition",
+        "suffixIcon",
+        "prefixIcon",
+        "containerRole",
+        "tabindex",
+        "validateEvent",
+        "inputStyle",
+        "countGraphemes",
+        "autofocus",
+        "rows",
+        "ariaLabel",
+        "inputmode",
+        "name"
+      ],
+      "events": [
+        "update:modelValue",
+        "input",
+        "change",
+        "focus",
+        "blur",
+        "clear",
+        "mouseleave",
+        "mouseenter",
+        "keydown",
+        "compositionstart",
+        "compositionupdate",
+        "compositionend"
+      ],
+      "slots": [
+        "prepend",
+        "append",
+        "prefix",
+        "suffix",
+        "password-icon"
+      ]
+    },
+    "usage": {
+      "calls": 5,
+      "prompt_tokens": 24210,
+      "completion_tokens": 2554,
+      "total_tokens": 26764,
+      "byLabel": {
+        "file-filter": {
+          "calls": 4,
+          "prompt_tokens": 12885,
+          "completion_tokens": 40,
+          "total_tokens": 12925
+        },
+        "api-extract": {
+          "calls": 1,
+          "prompt_tokens": 11325,
+          "completion_tokens": 2514,
+          "total_tokens": 13839
+        }
+      }
+    }
+  },
+  {
+    "name": "select",
+    "totalSec": 172.72,
+    "stage1": {
+      "sec": 14.66,
+      "filtered": 9,
+      "files": [
+        {
+          "p": "__tests__/options.test.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "__tests__/select.test.ts",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/option-group.vue",
+          "by": "ast",
+          "sig": [
+            "props-option",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/option.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/option.vue",
+          "by": "ast",
+          "sig": [
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/select-dropdown.vue",
+          "by": "ast",
+          "sig": [
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/select.ts",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "src/select.vue",
+          "by": "ast",
+          "sig": [
+            "template-slot"
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "sec": 158.06
+    },
+    "extracted": {
+      "main": "Select",
+      "props": [
+        "modelValue",
+        "multiple",
+        "disabled",
+        "valueKey",
+        "size",
+        "clearable",
+        "collapseTags",
+        "multipleLimit",
+        "name",
+        "autocomplete",
+        "placeholder",
+        "filterable",
+        "allowCreate",
+        "loading",
+        "popperClass",
+        "remote",
+        "remoteMethod",
+        "filterMethod",
+        "defaultFirstOption",
+        "reserveKeyword",
+        "collapseTagsTooltip",
+        "maxCollapseTags",
+        "teleported",
+        "persistent",
+        "fitInputWidth",
+        "tagType",
+        "tagEffect",
+        "validateEvent",
+        "remoteShowSuffix",
+        "showArrow",
+        "placement",
+        "tabindex",
+        "options",
+        "props"
+      ],
+      "events": [
+        "update:modelValue",
+        "change",
+        "visible-change",
+        "remove-tag",
+        "clear",
+        "blur",
+        "focus",
+        "end-reached"
+      ],
+      "slots": [
+        "default",
+        "empty",
+        "prefix",
+        "tag",
+        "label",
+        "header",
+        "footer",
+        "loading"
+      ]
+    },
+    "usage": {
+      "calls": 7,
+      "prompt_tokens": 54697,
+      "completion_tokens": 2335,
+      "total_tokens": 57032,
+      "byLabel": {
+        "file-filter": {
+          "calls": 6,
+          "prompt_tokens": 9586,
+          "completion_tokens": 54,
+          "total_tokens": 9640
+        },
+        "api-extract": {
+          "calls": 1,
+          "prompt_tokens": 45111,
+          "completion_tokens": 2281,
+          "total_tokens": 47392
+        }
+      }
+    }
+  },
+  {
+    "name": "form",
+    "totalSec": 85.6,
+    "stage1": {
+      "sec": 26.62,
+      "filtered": 11,
+      "files": [
+        {
+          "p": "__tests__/form-item.test.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "__tests__/form.test.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "__tests__/mock-data.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "__tests__/use-form-item.test.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/form-item.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/form-item.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "withDefaults",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/form-label-wrap.tsx",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "src/form.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/form.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "defineEmits",
+            "withDefaults",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/hooks/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        }
+      ]
+    },
+    "stage2": {
+      "sec": 58.98
+    },
+    "extracted": {
+      "main": "Form",
+      "props": [
+        "model",
+        "rules",
+        "labelPosition",
+        "requireAsteriskPosition",
+        "labelWidth",
+        "labelSuffix",
+        "inline",
+        "inlineMessage",
+        "statusIcon",
+        "showMessage",
+        "validateOnRuleChange",
+        "hideRequiredAsterisk",
+        "scrollToError",
+        "scrollIntoViewOptions",
+        "size",
+        "disabled"
+      ],
+      "events": [
+        "validate"
+      ],
+      "slots": [
+        "default"
+      ]
+    },
+    "usage": {
+      "calls": 8,
+      "prompt_tokens": 28643,
+      "completion_tokens": 1690,
+      "total_tokens": 30333,
+      "byLabel": {
+        "file-filter": {
+          "calls": 7,
+          "prompt_tokens": 5798,
+          "completion_tokens": 68,
+          "total_tokens": 5866
+        },
+        "api-extract": {
+          "calls": 1,
+          "prompt_tokens": 22845,
+          "completion_tokens": 1622,
+          "total_tokens": 24467
+        }
+      }
+    }
+  },
+  {
+    "name": "table",
+    "totalSec": 255.54,
+    "stage1": {
+      "sec": 77.28,
+      "filtered": 16,
+      "files": [
+        {
+          "p": "__tests__/table-column.test.ts",
+          "by": "ast",
+          "sig": [
+            "props-option"
+          ]
+        },
+        {
+          "p": "index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/filter-panel.vue",
+          "by": "ast",
+          "sig": [
+            "props-option",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/h-helper.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/store/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table/defaults.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/table-body/defaults.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/table-body/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table-body/td-wrapper.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/table-column/defaults.ts",
+          "by": "llm"
+        },
+        {
+          "p": "src/table-column/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table-column/index.vue",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table-footer/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table-header/index.ts",
+          "by": "ast",
+          "sig": [
+            "entry-file"
+          ]
+        },
+        {
+          "p": "src/table.vue",
+          "by": "ast",
+          "sig": [
+            "defineProps",
+            "defineEmits",
+            "withDefaults",
+            "template-slot"
+          ]
+        },
+        {
+          "p": "src/tableColumn.ts",
+          "by": "llm"
+        }
+      ]
+    },
+    "stage2": {
+      "sec": 178.26
+    },
+    "extracted": {
+      "main": "Table",
+      "props": [
+        "data",
+        "size",
+        "width",
+        "height",
+        "maxHeight",
+        "fit",
+        "stripe",
+        "border",
+        "rowKey",
+        "showHeader",
+        "showSummary",
+        "sumText",
+        "summaryMethod",
+        "rowClassName",
+        "rowStyle",
+        "cellClassName",
+        "cellStyle",
+        "headerRowClassName",
+        "headerRowStyle",
+        "headerCellClassName",
+        "headerCellStyle",
+        "highlightCurrentRow",
+        "currentRowKey",
+        "emptyText",
+        "expandRowKeys",
+        "defaultExpandAll",
+        "rowExpandable",
+        "defaultSort",
+        "tooltipEffect",
+        "tooltipOptions",
+        "spanMethod",
+        "selectOnIndeterminate",
+        "indent",
+        "treeProps",
+        "lazy",
+        "load",
+        "className",
+        "style",
+        "tableLayout",
+        "scrollbarAlwaysOn",
+        "flexible",
+        "showOverflowTooltip",
+        "tooltipFormatter",
+        "appendFilterPanelTo",
+        "scrollbarTabindex",
+        "allowDragLastColumn",
+        "preserveExpandedContent",
+        "nativeScrollbar"
+      ],
+      "events": [
+        "select",
+        "select-all",
+        "selection-change",
+        "cell-mouse-enter",
+        "cell-mouse-leave",
+        "cell-dblclick",
+        "cell-contextmenu",
+        "cell-click",
+        "row-dblclick",
+        "row-click",
+        "row-contextmenu",
+        "header-click",
+        "header-contextmenu",
+        "sort-change",
+        "filter-change",
+        "current-change",
+        "header-dragend",
+        "expand-change",
+        "scroll"
+      ],
+      "slots": [
+        "default",
+        "empty",
+        "append"
+      ]
+    },
+    "usage": {
+      "calls": 32,
+      "prompt_tokens": 110590,
+      "completion_tokens": 4740,
+      "total_tokens": 115330,
+      "byLabel": {
+        "file-filter": {
+          "calls": 31,
+          "prompt_tokens": 73108,
+          "completion_tokens": 300,
+          "total_tokens": 73408
+        },
+        "api-extract": {
+          "calls": 1,
+          "prompt_tokens": 37482,
+          "completion_tokens": 4440,
+          "total_tokens": 41922
+        }
+      }
+    }
+  }
+]
