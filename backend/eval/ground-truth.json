@@ -1,0 +1,391 @@
+{
+  "button": {
+    "props": [
+      "size",
+      "type",
+      "plain",
+      "text 2.2.0",
+      "bg 2.2.0",
+      "link 2.2.1",
+      "round",
+      "circle",
+      "dashed 2.13.3",
+      "loading",
+      "loading-icon",
+      "disabled",
+      "icon",
+      "autofocus",
+      "native-type",
+      "auto-insert-space",
+      "color",
+      "dark",
+      "tag 2.3.4"
+    ],
+    "events": [],
+    "slots": [
+      "default",
+      "loading",
+      "icon"
+    ],
+    "debug": [
+      {
+        "h2": "Button API ​",
+        "h3": "Button Attributes ​",
+        "cat": "props",
+        "n": 19
+      },
+      {
+        "h2": "Button API ​",
+        "h3": "Button Slots ​",
+        "cat": "slots",
+        "n": 3
+      },
+      {
+        "h2": "Button API ​",
+        "h3": "Button Exposes ​",
+        "note": "unclassified-but-main"
+      }
+    ]
+  },
+  "input": {
+    "props": [
+      "type",
+      "model-value / v-model",
+      "model-modifiers 2.11.5",
+      "maxlength",
+      "minlength",
+      "show-word-limit",
+      "word-limit-position 2.11.5",
+      "placeholder",
+      "clearable",
+      "clear-icon 2.11.0",
+      "formatter",
+      "parser",
+      "show-password",
+      "disabled",
+      "size",
+      "prefix-icon",
+      "suffix-icon",
+      "rows",
+      "autosize",
+      "autocomplete",
+      "name",
+      "readonly",
+      "max",
+      "min",
+      "step",
+      "resize",
+      "autofocus",
+      "form",
+      "aria-label a11y 2.7.2",
+      "tabindex",
+      "validate-event",
+      "input-style",
+      "label a11y deprecated",
+      "inputmode 2.10.3",
+      "count-graphemes 2.13.7"
+    ],
+    "events": [
+      "blur",
+      "focus",
+      "change",
+      "input",
+      "clear",
+      "keydown",
+      "mouseleave",
+      "mouseenter",
+      "compositionstart",
+      "compositionupdate",
+      "compositionend"
+    ],
+    "slots": [
+      "prefix",
+      "suffix",
+      "prepend",
+      "append",
+      "password-icon 2.13.6"
+    ],
+    "debug": [
+      {
+        "h2": "API ​",
+        "h3": "Attributes ​",
+        "cat": "props",
+        "n": 35
+      },
+      {
+        "h2": "API ​",
+        "h3": "Events ​",
+        "cat": "events",
+        "n": 11
+      },
+      {
+        "h2": "API ​",
+        "h3": "Slots ​",
+        "cat": "slots",
+        "n": 5
+      }
+    ]
+  },
+  "select": {
+    "props": [
+      "model-value / v-model",
+      "multiple",
+      "options 2.10.5",
+      "props 2.10.5",
+      "disabled",
+      "value-key",
+      "size",
+      "clearable",
+      "collapse-tags",
+      "collapse-tags-tooltip 2.3.0",
+      "tag-tooltip 2.13.3",
+      "multiple-limit",
+      "id",
+      "name",
+      "effect",
+      "autocomplete",
+      "placeholder",
+      "filterable",
+      "allow-create",
+      "filter-method",
+      "remote",
+      "debounce 2.11.7",
+      "remote-method",
+      "remote-show-suffix",
+      "loading",
+      "loading-text",
+      "no-match-text",
+      "no-data-text",
+      "popper-class",
+      "popper-style 2.11.0",
+      "reserve-keyword",
+      "default-first-option",
+      "teleported",
+      "append-to 2.8.4",
+      "persistent",
+      "automatic-dropdown",
+      "clear-icon",
+      "fit-input-width",
+      "suffix-icon",
+      "tag-type",
+      "tag-effect 2.7.7",
+      "validate-event",
+      "offset 2.8.8",
+      "show-arrow 2.8.8",
+      "placement 2.2.17",
+      "fallback-placements 2.5.6",
+      "max-collapse-tags 2.3.0",
+      "popper-options",
+      "aria-label a11y",
+      "empty-values 2.7.0",
+      "value-on-clear 2.7.0",
+      "suffix-transition deprecated",
+      "tabindex 2.9.0",
+      "value",
+      "label",
+      "options 2.11.0"
+    ],
+    "events": [
+      "change",
+      "visible-change",
+      "remove-tag",
+      "clear",
+      "blur",
+      "focus",
+      "popup-scroll 2.9.4",
+      "end-reached 2.14.0"
+    ],
+    "slots": [
+      "default",
+      "header 2.4.3",
+      "footer 2.4.3",
+      "prefix",
+      "empty",
+      "tag 2.5.0",
+      "loading 2.5.2",
+      "label 2.7.4"
+    ],
+    "debug": [
+      {
+        "h2": "Select API ​",
+        "h3": "Select Attributes ​",
+        "cat": "props",
+        "n": 53
+      },
+      {
+        "h2": "Select API ​",
+        "h3": "Props ​",
+        "cat": "props",
+        "n": 4
+      },
+      {
+        "h2": "Select API ​",
+        "h3": "Select Events ​",
+        "cat": "events",
+        "n": 8
+      },
+      {
+        "h2": "Select API ​",
+        "h3": "Select Slots ​",
+        "cat": "slots",
+        "n": 8
+      },
+      {
+        "h2": "Select API ​",
+        "h3": "Select Exposes ​",
+        "note": "unclassified-but-main"
+      }
+    ]
+  },
+  "form": {
+    "props": [
+      "model",
+      "rules",
+      "inline",
+      "label-position",
+      "label-width",
+      "label-suffix",
+      "hide-required-asterisk",
+      "require-asterisk-position",
+      "show-message",
+      "inline-message",
+      "status-icon",
+      "validate-on-rule-change",
+      "size",
+      "disabled",
+      "scroll-to-error",
+      "scroll-into-view-options 2.3.2"
+    ],
+    "events": [
+      "validate"
+    ],
+    "slots": [
+      "default"
+    ],
+    "debug": [
+      {
+        "h2": "Form API ​",
+        "h3": "Form Attributes ​",
+        "cat": "props",
+        "n": 16
+      },
+      {
+        "h2": "Form API ​",
+        "h3": "Form Events ​",
+        "cat": "events",
+        "n": 1
+      },
+      {
+        "h2": "Form API ​",
+        "h3": "Form Slots ​",
+        "cat": "slots",
+        "n": 1
+      },
+      {
+        "h2": "Form API ​",
+        "h3": "Form Exposes ​",
+        "note": "unclassified-but-main"
+      }
+    ]
+  },
+  "table": {
+    "props": [
+      "data",
+      "height",
+      "max-height",
+      "stripe",
+      "border",
+      "size",
+      "fit",
+      "show-header",
+      "highlight-current-row",
+      "current-row-key",
+      "row-class-name",
+      "row-style",
+      "cell-class-name",
+      "cell-style",
+      "header-row-class-name",
+      "header-row-style",
+      "header-cell-class-name",
+      "header-cell-style",
+      "row-key",
+      "empty-text",
+      "default-expand-all",
+      "expand-row-keys",
+      "default-sort",
+      "tooltip-effect",
+      "tooltip-options 2.2.28",
+      "append-filter-panel-to 2.8.4",
+      "show-summary",
+      "sum-text",
+      "summary-method",
+      "span-method",
+      "select-on-indeterminate",
+      "indent",
+      "lazy",
+      "load",
+      "tree-props",
+      "table-layout",
+      "scrollbar-always-on",
+      "show-overflow-tooltip",
+      "flexible 2.2.1",
+      "scrollbar-tabindex 2.8.3",
+      "allow-drag-last-column 2.9.2",
+      "tooltip-formatter 2.9.4",
+      "preserve-expanded-content 2.9.7",
+      "native-scrollbar 2.10.5",
+      "row-expandable 2.13.2"
+    ],
+    "events": [
+      "select",
+      "select-all",
+      "selection-change",
+      "cell-mouse-enter",
+      "cell-mouse-leave",
+      "cell-click",
+      "cell-dblclick",
+      "cell-contextmenu",
+      "row-click",
+      "row-contextmenu",
+      "row-dblclick",
+      "header-click",
+      "header-contextmenu",
+      "sort-change",
+      "filter-change",
+      "current-change",
+      "header-dragend",
+      "expand-change",
+      "scroll 2.9.0"
+    ],
+    "slots": [
+      "default",
+      "append",
+      "empty"
+    ],
+    "debug": [
+      {
+        "h2": "Table API ​",
+        "h3": "Table 属性 ​",
+        "cat": "props",
+        "n": 45
+      },
+      {
+        "h2": "Table API ​",
+        "h3": "Table 事件 ​",
+        "cat": "events",
+        "n": 19
+      },
+      {
+        "h2": "Table API ​",
+        "h3": "Table 插槽 ​",
+        "cat": "slots",
+        "n": 3
+      },
+      {
+        "h2": "Table API ​",
+        "h3": "Table Exposes ​",
+        "note": "unclassified-but-main"
+      }
+    ]
+  }
+}

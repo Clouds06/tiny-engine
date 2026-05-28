@@ -1,0 +1,2453 @@
+[
+  {
+    "id": "button",
+    "api": [
+      {
+        "name": "Button 按钮",
+        "description": "按钮组件，用于触发操作或命令。",
+        "components": {
+          "Button": {
+            "properties": [
+              {
+                "name": "size",
+                "description": "尺寸",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "type",
+                "description": "按钮类型，在设置color时，后者优先。",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "plain",
+                "description": "是否为朴素按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "text 2.2.0",
+                "description": "是否为文字按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "bg 2.2.0",
+                "description": "是否显示文字按钮背景颜色",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "link 2.2.1",
+                "description": "是否为链接按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "round",
+                "description": "是否为圆角按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "circle",
+                "description": "是否为圆形按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "dashed 2.13.3",
+                "description": "是否是虚线按钮",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "loading",
+                "description": "是否为加载中状态",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "loading-icon",
+                "description": "自定义加载中状态图标组件",
+                "type": "string / Component",
+                "default": "Loading",
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "按钮是否为禁用状态",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "icon",
+                "description": "图标组件",
+                "type": "string / Component",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "autofocus",
+                "description": "原生 autofocus 属性",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "native-type",
+                "description": "原生 type 属性",
+                "type": "enum",
+                "default": "button",
+                "enumOptions": []
+              },
+              {
+                "name": "auto-insert-space",
+                "description": "两个中文字符之间自动插入空格(仅当文本长度为 2 且所有字符均为中文时才生效)",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "color",
+                "description": "自定义按钮颜色, 并自动计算 hover 和 active 触发后的颜色 自 2.13.7 起，支持 link/text 按钮。",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "dark",
+                "description": "dark 模式, 意味着自动设置 color 为 dark 模式的颜色",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "tag 2.3.4",
+                "description": "自定义元素标签",
+                "type": "string / Component",
+                "default": "button",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义默认内容",
+                "props": ""
+              },
+              {
+                "name": "loading",
+                "description": "自定义加载中组件",
+                "props": ""
+              },
+              {
+                "name": "icon",
+                "description": "自定义图标组件",
+                "props": ""
+              }
+            ],
+            "methods": [],
+            "exposes": [
+              {
+                "name": "ref",
+                "description": "按钮 html 元素",
+                "functionParams": ""
+              },
+              {
+                "name": "size",
+                "description": "按钮尺寸",
+                "functionParams": ""
+              },
+              {
+                "name": "type",
+                "description": "按钮类型",
+                "functionParams": ""
+              },
+              {
+                "name": "disabled",
+                "description": "按钮已禁用",
+                "functionParams": ""
+              },
+              {
+                "name": "shouldAddSpace",
+                "description": "是否在两个字符之间插入空格",
+                "functionParams": ""
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "ButtonGroup 按钮组",
+        "description": "按钮组组件，用于将多个按钮组合在一起，统一控制样式或布局。",
+        "components": {
+          "ButtonGroup": {
+            "properties": [
+              {
+                "name": "size",
+                "description": "用于控制该按钮组内按钮的大小",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "type",
+                "description": "用于控制该按钮组内按钮的类型",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "direction 2.11.9",
+                "description": "展示的方向",
+                "type": "enum",
+                "default": "horizontal",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义按钮组内容",
+                "props": "Button"
+              }
+            ],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "input",
+    "api": [
+      {
+        "name": "Input 输入框",
+        "description": "输入框组件，用于接收用户输入的单行或多行文本信息。",
+        "components": {
+          "Input": {
+            "properties": [
+              {
+                "name": "type",
+                "description": "输入类型，更多信息请参见 MDN",
+                "type": "string",
+                "default": "text",
+                "enumOptions": []
+              },
+              {
+                "name": "model-value / v-model",
+                "description": "绑定值",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "model-modifiers 2.11.5",
+                "description": "v-model 修饰符，参考 Vue 修饰符",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "maxlength",
+                "description": "同原生 maxlength 属性",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "minlength",
+                "description": "原生属性，最小输入长度",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "show-word-limit",
+                "description": "是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "word-limit-position 2.11.5",
+                "description": "字数统计的位置，仅当 show-word-limit 为 true 时生效。",
+                "type": "enum",
+                "default": "\"inside\"",
+                "enumOptions": [
+                  "inside"
+                ]
+              },
+              {
+                "name": "placeholder",
+                "description": "输入框占位文本",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "clearable",
+                "description": "是否显示清除按钮，只有当 type 不是 textarea时生效",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "clear-icon 2.11.0",
+                "description": "自定义清除图标",
+                "type": "string | object",
+                "default": "CircleClose",
+                "enumOptions": []
+              },
+              {
+                "name": "formatter",
+                "description": "指定输入值的格式。(只有当 type 是\"text\"时才能工作)",
+                "type": "Function",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "parser",
+                "description": "指定从格式化器输入中提取的值。(仅当 type 是\"text\"时才起作用)",
+                "type": "Function",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "show-password",
+                "description": "是否显示切换密码图标",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "是否禁用",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "size",
+                "description": "输入框尺寸，只在 type 不为 'textarea' 时有效",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "prefix-icon",
+                "description": "自定义前缀图标",
+                "type": "string | Component",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "suffix-icon",
+                "description": "自定义后缀图标",
+                "type": "string | Component",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "rows",
+                "description": "输入框行数，仅 type 为 'textarea' 时有效",
+                "type": "number",
+                "default": "2",
+                "enumOptions": []
+              },
+              {
+                "name": "autosize",
+                "description": "textarea 高度是否自适应，仅 type 为 'textarea' 时生效。 可以接受一个对象，比如: { minRows: 2, maxRows: 6 }",
+                "type": "boolean | object",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "autocomplete",
+                "description": "原生 autocomplete 属性",
+                "type": "string",
+                "default": "off",
+                "enumOptions": []
+              },
+              {
+                "name": "name",
+                "description": "等价于原生 input name 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "readonly",
+                "description": "原生 readonly 属性，是否只读",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "max",
+                "description": "原生 max 属性，设置最大值",
+                "type": "unknown",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "min",
+                "description": "原生属性，设置最小值",
+                "type": "unknown",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "step",
+                "description": "原生属性，设置输入字段的合法数字间隔",
+                "type": "unknown",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "resize",
+                "description": "控制是否能被用户缩放",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "autofocus",
+                "description": "原生属性，自动获取焦点",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "form",
+                "description": "原生属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "aria-label a11y 2.7.2",
+                "description": "等价于原生 input aria-label 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "tabindex",
+                "description": "输入框的 tabindex",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "validate-event",
+                "description": "输入时是否触发表单的校验",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "input-style",
+                "description": "input 元素或 textarea 元素的 style",
+                "type": "string | object",
+                "default": "{}",
+                "enumOptions": []
+              },
+              {
+                "name": "label a11y deprecated",
+                "description": "等价于原生 input aria-label 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "inputmode 2.10.3",
+                "description": "等价于原生 input inputmode 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "count-graphemes 2.13.7",
+                "description": "自定义函数用于计算字形；设置后，将绕过原生的 maxlength/minlength 约束。 组件使用 Intl.Segmenter（Chrome 87+、Firefox 125+、Safari 14.1+）进行正确的字素聚类；旧版浏览器回退到使用 Array.from() 进行码点迭代。",
+                "type": "Function",
+                "default": null,
+                "enumOptions": []
+              }
+            ],
+            "events": [
+              {
+                "name": "blur",
+                "description": "当选择器的输入框失去焦点时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "focus",
+                "description": "当选择器的输入框获得焦点时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "change",
+                "description": "仅当 modelValue 改变时，当输入框失去焦点或用户按Enter时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "input",
+                "description": "在 Input 值改变时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "clear",
+                "description": "在点击由 clearable 属性生成的清空按钮时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "keydown",
+                "description": "按下键时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "mouseleave",
+                "description": "当鼠标离开输入元素时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "mouseenter",
+                "description": "当鼠标进入输入元素时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "compositionstart",
+                "description": "输入法输入开始时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "compositionupdate",
+                "description": "输入法输入改变时触发",
+                "functionParams": ""
+              },
+              {
+                "name": "compositionend",
+                "description": "输入法输入完成时触发",
+                "functionParams": ""
+              }
+            ],
+            "slots": [
+              {
+                "name": "prefix",
+                "description": "输入框头部内容，只对非 type=\"textarea\" 有效",
+                "props": ""
+              },
+              {
+                "name": "suffix",
+                "description": "输入框尾部内容，只对非 type=\"textarea\" 有效",
+                "props": ""
+              },
+              {
+                "name": "prepend",
+                "description": "输入框前置内容，只对非 type=\"textarea\" 有效",
+                "props": ""
+              },
+              {
+                "name": "append",
+                "description": "输入框后置内容，只对非 type=\"textarea\" 有效",
+                "props": ""
+              },
+              {
+                "name": "password-icon 2.13.6",
+                "description": "作为输入密码图标的内容，仅在 show-password 为 true 时生效。 作用域变量为 { visible: boolean }",
+                "props": "{ visible: boolean }"
+              }
+            ],
+            "methods": [],
+            "exposes": [
+              {
+                "name": "blur",
+                "description": "使 input 失去焦点",
+                "functionParams": ""
+              },
+              {
+                "name": "clear",
+                "description": "清除 input 值",
+                "functionParams": ""
+              },
+              {
+                "name": "focus",
+                "description": "使 input 获取焦点",
+                "functionParams": ""
+              },
+              {
+                "name": "input",
+                "description": "Input HTML 元素",
+                "functionParams": ""
+              },
+              {
+                "name": "ref",
+                "description": "HTML元素 input 或 textarea",
+                "functionParams": ""
+              },
+              {
+                "name": "resizeTextarea",
+                "description": "改变 textarea 大小",
+                "functionParams": ""
+              },
+              {
+                "name": "select",
+                "description": "选中 input 中的文字",
+                "functionParams": ""
+              },
+              {
+                "name": "textarea",
+                "description": "HTML textarea 元素",
+                "functionParams": ""
+              },
+              {
+                "name": "textareaStyle",
+                "description": "textarea 的样式",
+                "functionParams": ""
+              },
+              {
+                "name": "isComposing 2.8.0",
+                "description": "是否是输入 composing 状态",
+                "functionParams": ""
+              },
+              {
+                "name": "passwordVisible 2.13.7",
+                "description": "密码是否可见",
+                "functionParams": ""
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "select",
+    "api": [
+      {
+        "name": "Select 选择器",
+        "description": "下拉选择器组件，用于从一组选项中进行单选或多选。",
+        "components": {
+          "Select": {
+            "properties": [
+              {
+                "name": "model-value / v-model",
+                "description": "选中项绑定值",
+                "type": "string | number | boolean | object | array",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "multiple",
+                "description": "是否多选",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "options 2.10.5",
+                "description": "选项的数据源， value 的 key 和 label 和 disabled可以通过 props自定义.",
+                "type": "array",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "props 2.10.5",
+                "description": "options 的配置",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "是否禁用",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "value-key",
+                "description": "作为 value 唯一标识的键名，绑定值为对象类型时必填",
+                "type": "string",
+                "default": "value",
+                "enumOptions": []
+              },
+              {
+                "name": "size",
+                "description": "输入框尺寸",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "clearable",
+                "description": "是否可以清空选项",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "collapse-tags",
+                "description": "多选时是否将选中值按文字的形式展示",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "collapse-tags-tooltip 2.3.0",
+                "description": "当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，collapse-tags属性必须设定为 true",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "tag-tooltip 2.13.3",
+                "description": "折叠标签工具提示的配置对象。 要使用此项， collapse-tags 和 collapse-tags-tooltip 必须为 true",
+                "type": "object",
+                "default": "{}",
+                "enumOptions": []
+              },
+              {
+                "name": "multiple-limit",
+                "description": "multiple 属性设置为 true 时，代表多选场景下用户最多可以选择的项目数， 为 0 则不限制",
+                "type": "number",
+                "default": "0",
+                "enumOptions": []
+              },
+              {
+                "name": "id",
+                "description": "原生 input 的 id",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "name",
+                "description": "Select 输入框的原生 name 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "effect",
+                "description": "tooltip 主题，内置了 dark / light 两种",
+                "type": "enum | string",
+                "default": "light",
+                "enumOptions": []
+              },
+              {
+                "name": "autocomplete",
+                "description": "Select 输入框的原生 autocomplete 属性",
+                "type": "string",
+                "default": "off",
+                "enumOptions": []
+              },
+              {
+                "name": "placeholder",
+                "description": "占位符，默认为“Select”",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "filterable",
+                "description": "Select 组件是否可筛选",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "allow-create",
+                "description": "是否允许用户创建新条目， 当filterable设置为 true 时才会生效",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "filter-method",
+                "description": "自定义筛选方法的第一个参数是当前输入的值。 只有当 filterable 设置为 true 时才会生效。",
+                "type": "Function",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "remote",
+                "description": "其中的选项是否从服务器远程加载",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "debounce 2.11.7",
+                "description": "远程搜索时的防抖延迟（以毫秒为单位）",
+                "type": "number",
+                "default": "300",
+                "enumOptions": []
+              },
+              {
+                "name": "remote-method",
+                "description": "当输入值发生变化时触发的函数。 它的参数就是当前的输入值。 当filterable设置为 true 时才会生效",
+                "type": "Function",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "remote-show-suffix",
+                "description": "远程搜索方法显示后缀图标",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "loading",
+                "description": "是否正在从远程获取数据",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "loading-text",
+                "description": "从服务器加载数据时显示的文本，默认为“Loading”",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "no-match-text",
+                "description": "搜索条件无匹配时显示的文字，也可以使用 empty 插槽设置，默认是 “No matching data'”",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "no-data-text",
+                "description": "无选项时显示的文字，也可以使用 empty 插槽设置自定义内容，默认是 “No data”",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "popper-class",
+                "description": "为 Select 下拉菜单和标签提示设置自定义类名",
+                "type": "string",
+                "default": "''",
+                "enumOptions": []
+              },
+              {
+                "name": "popper-style 2.11.0",
+                "description": "为 Select 下拉菜单和标签提示设置自定义样式",
+                "type": "string | object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "reserve-keyword",
+                "description": "当 multiple 和 filterable被设置为 true 时，是否在选中一个选项后保留当前的搜索关键词",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "default-first-option",
+                "description": "是否在输入框按下回车时，选择第一个匹配项。 需配合 filterable 或 remote 使用",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "teleported",
+                "description": "是否使用 teleport。设置成 true则会被追加到 append-to 的位置",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "append-to 2.8.4",
+                "description": "下拉框挂载到哪个 DOM 元素",
+                "type": "CSSSelector | HTMLElement",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "persistent",
+                "description": "当下拉选择器未被激活并且persistent设置为false，选择器会被删除。",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "automatic-dropdown",
+                "description": "对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "clear-icon",
+                "description": "自定义清除图标",
+                "type": "string | object",
+                "default": "CircleClose",
+                "enumOptions": []
+              },
+              {
+                "name": "fit-input-width",
+                "description": "下拉框的宽度是否与输入框相同",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "suffix-icon",
+                "description": "自定义后缀图标组件",
+                "type": "string | object",
+                "default": "ArrowDown",
+                "enumOptions": []
+              },
+              {
+                "name": "tag-type",
+                "description": "标签类型",
+                "type": "enum",
+                "default": "info",
+                "enumOptions": []
+              },
+              {
+                "name": "tag-effect 2.7.7",
+                "description": "标签效果",
+                "type": "enum",
+                "default": "light",
+                "enumOptions": []
+              },
+              {
+                "name": "validate-event",
+                "description": "是否触发表单验证",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "offset 2.8.8",
+                "description": "下拉面板偏移量",
+                "type": "number",
+                "default": "12",
+                "enumOptions": []
+              },
+              {
+                "name": "show-arrow 2.8.8",
+                "description": "下拉菜单的内容是否有箭头",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "placement 2.2.17",
+                "description": "下拉框出现的位置",
+                "type": "enum",
+                "default": "bottom-start",
+                "enumOptions": []
+              },
+              {
+                "name": "fallback-placements 2.5.6",
+                "description": "dropdown 可用的 positions 请查看popper.js 文档",
+                "type": "array",
+                "default": "['bottom-start', 'top-start', 'right', 'left']",
+                "enumOptions": []
+              },
+              {
+                "name": "max-collapse-tags 2.3.0",
+                "description": "需要显示的 Tag 的最大数量 只有当 collapse-tags 设置为 true 时才会生效。",
+                "type": "number",
+                "default": "1",
+                "enumOptions": []
+              },
+              {
+                "name": "popper-options",
+                "description": "popper.js 参数",
+                "type": "object",
+                "default": "{}",
+                "enumOptions": []
+              },
+              {
+                "name": "aria-label a11y",
+                "description": "等价于原生 input aria-label 属性",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "empty-values 2.7.0",
+                "description": "组件的空值配置， 参考config-provider",
+                "type": "array",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "value-on-clear 2.7.0",
+                "description": "清空选项的值， 参考config-provider",
+                "type": "string | number | boolean | Function",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "suffix-transition deprecated",
+                "description": "下拉菜单显示/消失时后缀图标的动画",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "tabindex 2.9.0",
+                "description": "input 的 tabindex",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              }
+            ],
+            "events": [
+              {
+                "name": "change",
+                "description": "选中值发生变化时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "visible-change",
+                "description": "下拉框出现/隐藏时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "remove-tag",
+                "description": "多选模式下移除tag时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "clear",
+                "description": "可清空的单选模式下用户点击清空按钮时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "blur",
+                "description": "当 input 失去焦点时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "focus",
+                "description": "当 input 获得焦点时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "popup-scroll 2.9.4",
+                "description": "下拉滚动时触发",
+                "functionParams": "Function"
+              },
+              {
+                "name": "end-reached 2.14.0",
+                "description": "下拉滚动到结束时触发器",
+                "functionParams": "Function"
+              }
+            ],
+            "slots": [
+              {
+                "name": "default",
+                "description": "option 组件列表",
+                "props": "Option Group / Option"
+              },
+              {
+                "name": "header 2.4.3",
+                "description": "下拉列表顶部的内容",
+                "props": ""
+              },
+              {
+                "name": "footer 2.4.3",
+                "description": "下拉列表底部的内容",
+                "props": ""
+              },
+              {
+                "name": "prefix",
+                "description": "Select 组件头部内容",
+                "props": ""
+              },
+              {
+                "name": "empty",
+                "description": "无选项时的列表",
+                "props": ":::"
+              },
+              {
+                "name": "tag 2.5.0",
+                "description": "作为 Select 组件的内容时，子标签 data、selectDisabled 和 deleteTag 是在版本 2.10.3 中新增的。",
+                "props": "object"
+              },
+              {
+                "name": "loading 2.5.2",
+                "description": "select 组件自定义 loading内容",
+                "props": ""
+              },
+              {
+                "name": "label 2.7.4",
+                "description": "select 组件自定义标签内容 index 引入于2.11.2",
+                "props": "object"
+              }
+            ],
+            "methods": [
+              {
+                "name": "focus",
+                "description": "使选择器的输入框获取焦点",
+                "functionParams": "Function"
+              },
+              {
+                "name": "blur",
+                "description": "使选择器的输入框失去焦点，并隐藏下拉框",
+                "functionParams": "Function"
+              },
+              {
+                "name": "selectedLabel 2.8.5",
+                "description": "获取当前选中的标签",
+                "functionParams": "object"
+              }
+            ],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "Select Props",
+        "description": "用于配置Select组件选项数据源映射规则的属性集合。",
+        "components": {
+          "SelectProps": {
+            "properties": [
+              {
+                "name": "value",
+                "description": "指定选项的值为选项对象的某个属性值",
+                "type": "string",
+                "default": "value",
+                "enumOptions": []
+              },
+              {
+                "name": "label",
+                "description": "指定节点标签为节点对象的某个属性值",
+                "type": "string",
+                "default": "label",
+                "enumOptions": []
+              },
+              {
+                "name": "options 2.11.0",
+                "description": "指定选项的子选项为选项对象的某个属性值",
+                "type": "string",
+                "default": "options",
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "指定选项的禁用为选项对象的某个属性值",
+                "type": "string",
+                "default": "disabled",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "Tooltip",
+        "description": "文字提示组件，用于在鼠标悬停时显示额外的信息。",
+        "components": {
+          "Tooltip": {
+            "properties": [
+              {
+                "name": "append-to",
+                "description": "指示 Tooltip 的内容将附加在哪一个网页元素上",
+                "type": "CSSSelector | HTMLElement",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "placement",
+                "description": "Tooltip 组件出现的位置",
+                "type": "enum",
+                "default": "bottom",
+                "enumOptions": []
+              },
+              {
+                "name": "fallback-placements",
+                "description": "Tooltip 可用的 positions 请查看popper.js 文档",
+                "type": "array",
+                "default": "['bottom', 'top', 'right', 'left']",
+                "enumOptions": []
+              },
+              {
+                "name": "effect",
+                "description": "文字提示（Tooltip）的主题，内置dark和light两种。",
+                "type": "enum | string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "popper-class",
+                "description": "为 Tooltip 的 popper 添加自定义类名",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "popper-style",
+                "description": "为 Tooltip 的 popper 添加自定义样式",
+                "type": "string | object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "transition",
+                "description": "Tooltip 所应用过渡动画的名称",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "teleported",
+                "description": "是否使用 teleport。设置成 true则会被追加到 append-to 的位置",
+                "type": "boolean",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "popper-options",
+                "description": "popper.js 参数",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "show-after",
+                "description": "在触发后多久显示内容，单位毫秒",
+                "type": "number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "hide-after",
+                "description": "关闭时的延迟",
+                "type": "number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "auto-close",
+                "description": "tooltip 出现后自动隐藏延时，单位毫秒",
+                "type": "number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "offset",
+                "description": "Tooltip 出现位置的偏移量",
+                "type": "number",
+                "default": null,
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "Option Group",
+        "description": "选项分组组件，用于对Select组件的选项进行分组。",
+        "components": {
+          "OptionGroup": {
+            "properties": [
+              {
+                "name": "label",
+                "description": "分组的名称",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "是否将该分组下所有选项置为禁用",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义默认内容",
+                "props": "Option"
+              }
+            ],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "Option",
+        "description": "选项组件，代表Select组件中的一个可选项。",
+        "components": {
+          "Option": {
+            "properties": [
+              {
+                "name": "value",
+                "description": "选项的值",
+                "type": "string | number | boolean | object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "label",
+                "description": "选项的标签，若不设置则默认与value相同",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "是否禁用该选项",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "默认插槽内容",
+                "props": ""
+              }
+            ],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "form",
+    "api": [
+      {
+        "name": "Form 表单",
+        "description": "表单组件，用于收集、校验和提交用户输入数据。",
+        "components": {
+          "Form": {
+            "properties": [
+              {
+                "name": "model",
+                "description": "表单数据对象",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "rules",
+                "description": "表单验证规则",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "inline",
+                "description": "行内表单模式",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "label-position",
+                "description": "表单域标签的位置， 当设置为 left 或 right 时，则也需要设置 label-width 属性",
+                "type": "enum",
+                "default": "right",
+                "enumOptions": [
+                  "left",
+                  "right"
+                ]
+              },
+              {
+                "name": "label-width",
+                "description": "标签的长度，例如 '50px'。 作为 Form 直接子元素的 form-item 会继承该值。 可以使用 auto。",
+                "type": "string | number",
+                "default": "''",
+                "enumOptions": []
+              },
+              {
+                "name": "label-suffix",
+                "description": "表单域标签的后缀",
+                "type": "string",
+                "default": "''",
+                "enumOptions": []
+              },
+              {
+                "name": "hide-required-asterisk",
+                "description": "是否隐藏必填字段标签旁边的红色星号。",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "require-asterisk-position",
+                "description": "星号的位置。",
+                "type": "enum",
+                "default": "left",
+                "enumOptions": [
+                  "left"
+                ]
+              },
+              {
+                "name": "show-message",
+                "description": "是否显示校验错误信息",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "inline-message",
+                "description": "是否以行内形式展示校验信息",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "status-icon",
+                "description": "是否在输入框中显示校验结果反馈图标",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "validate-on-rule-change",
+                "description": "是否在 rules 属性改变后立即触发一次验证",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "size",
+                "description": "用于控制该表单内组件的尺寸",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "disabled",
+                "description": "是否禁用该表单内的所有组件。 在 2.12.0 以前，如果设置为 true，它将覆盖内部组件的 disabled 属性。 在 2.12.0 之后，内部组件的配置优先。",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "scroll-to-error",
+                "description": "当校验失败时，滚动到第一个错误表单项",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "scroll-into-view-options",
+                "description": "当校验有失败结果时，滚动到第一个失败的表单项目 可通过 scrollIntoView 配置",
+                "type": "object | boolean",
+                "default": "true",
+                "enumOptions": []
+              }
+            ],
+            "events": [
+              {
+                "name": "validate",
+                "description": "任一表单项被校验后触发",
+                "functionParams": ""
+              }
+            ],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义默认内容",
+                "props": "FormItem"
+              }
+            ],
+            "methods": [
+              {
+                "name": "validate",
+                "description": "对整个表单的内容进行验证。 接收一个回调函数，或返回 Promise。",
+                "functionParams": ""
+              },
+              {
+                "name": "validateField",
+                "description": "验证具体的某个字段。",
+                "functionParams": ""
+              },
+              {
+                "name": "resetFields",
+                "description": "重置该表单项，将其值重置为初始值，并移除校验结果",
+                "functionParams": ""
+              },
+              {
+                "name": "scrollToField",
+                "description": "滚动到指定的字段",
+                "functionParams": ""
+              },
+              {
+                "name": "clearValidate",
+                "description": "清理某个字段的表单验证信息。",
+                "functionParams": ""
+              },
+              {
+                "name": "fields",
+                "description": "获取所有字段的 context",
+                "functionParams": ""
+              },
+              {
+                "name": "getField",
+                "description": "获取字段的 context",
+                "functionParams": ""
+              },
+              {
+                "name": "setInitialValues",
+                "description": "设置表单字段的初始值。 当调用 resetFields 时，字段将重置为这些值。",
+                "functionParams": ""
+              }
+            ],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "FormItem 表单项",
+        "description": "表单项组件，用于包裹表单控件，提供标签、验证和错误提示功能。",
+        "components": {
+          "FormItem": {
+            "properties": [
+              {
+                "name": "prop",
+                "description": "model 的键名。 它可以是属性的路径（如 a.b.0 或 ['a', 'b', '0']）。 在使用了 validate、resetFields 的方法时，该属性是必填的。",
+                "type": "string | string[]",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "label",
+                "description": "标签文本",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "label-position",
+                "description": "表单域标签的位置， 当设置为 left 或 right 时，则也需要设置 label-width 属性 默认会继承 Form的label-position",
+                "type": "enum",
+                "default": "''",
+                "enumOptions": [
+                  "left",
+                  "right"
+                ]
+              },
+              {
+                "name": "label-width",
+                "description": "标签宽度，例如 '50px'。 可以使用 auto。",
+                "type": "string | number",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "required",
+                "description": "是否为必填项，如不设置，则会根据校验规则确认",
+                "type": "boolean",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "rules",
+                "description": "表单验证规则, 具体配置见下表, 更多内容可以参考async-validator",
+                "type": "object",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "error",
+                "description": "表单域验证错误时的提示信息。设置该值会导致表单验证状态变为 error，并显示该错误信息。",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "show-message",
+                "description": "是否显示校验错误信息",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "inline-message",
+                "description": "是否在行内显示校验信息",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "size",
+                "description": "用于控制该表单域下组件的默认尺寸",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "for",
+                "description": "和原生标签相同能力",
+                "type": "string",
+                "default": null,
+                "enumOptions": []
+              },
+              {
+                "name": "validate-status",
+                "description": "formitem 校验的状态",
+                "type": "enum",
+                "default": null,
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "表单的内容。",
+                "props": ""
+              },
+              {
+                "name": "label",
+                "description": "标签位置显示的内容",
+                "props": "object"
+              },
+              {
+                "name": "error",
+                "description": "验证错误信息的显示内容",
+                "props": "object"
+              }
+            ],
+            "methods": [],
+            "exposes": [
+              {
+                "name": "size",
+                "description": "表单项大小",
+                "functionParams": ""
+              },
+              {
+                "name": "validateMessage",
+                "description": "校验消息",
+                "functionParams": ""
+              },
+              {
+                "name": "validateState",
+                "description": "校验状态",
+                "functionParams": ""
+              },
+              {
+                "name": "validate",
+                "description": "验证表单项",
+                "functionParams": ""
+              },
+              {
+                "name": "resetField",
+                "description": "对该表单项进行重置，将其值重置为初始值并移除校验结果",
+                "functionParams": ""
+              },
+              {
+                "name": "clearValidate",
+                "description": "移除该表单项的校验结果",
+                "functionParams": ""
+              },
+              {
+                "name": "setInitialValue",
+                "description": "设置表单字段的初始值。 当调用 resetFields 时，字段将重置为这些值。",
+                "functionParams": ""
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "table",
+    "api": [
+      {
+        "name": "Table 表格",
+        "description": "表格组件，用于展示结构化数据，支持排序、筛选、分页、自定义列、行展开等多种功能。",
+        "components": {
+          "Table": {
+            "properties": [
+              {
+                "name": "data",
+                "description": "表数据",
+                "type": "array",
+                "default": "[]",
+                "enumOptions": []
+              },
+              {
+                "name": "height",
+                "description": "table 的高度。 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。",
+                "type": "string / number",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "max-height",
+                "description": "table 的最大高度。 合法的值为数字或者单位为 px 的高度。",
+                "type": "string / number",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "stripe",
+                "description": "是否为斑马纹 table",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "border",
+                "description": "是否带有纵向边框",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "size",
+                "description": "Table 的尺寸",
+                "type": "enum",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "fit",
+                "description": "列的宽度是否自撑开",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "show-header",
+                "description": "是否显示表头",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "highlight-current-row",
+                "description": "是否要高亮当前行",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "current-row-key",
+                "description": "当前行的 key，只写属性",
+                "type": "string / number",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "row-class-name",
+                "description": "行的 className 的回调方法，也可以使用字符串为所有行设置一个固定的 className。",
+                "type": "Function / string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "row-style",
+                "description": "行的 style 的回调方法，也可以使用一个固定的 Object 为所有行设置一样的 Style。",
+                "type": "Function / object",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "cell-class-name",
+                "description": "单元格的 className 的回调方法，也可以使用字符串为所有单元格设置一个固定的 className。",
+                "type": "Function / string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "cell-style",
+                "description": "单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。",
+                "type": "Function / object",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "header-row-class-name",
+                "description": "表头行的 className 的回调方法，也可以使用字符串为所有表头行设置一个固定的 className。",
+                "type": "Function / string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "header-row-style",
+                "description": "表头行的 style 的回调方法，也可以使用一个固定的 Object 为所有表头行设置一样的 Style。",
+                "type": "Function / object",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "header-cell-class-name",
+                "description": "表头单元格的 className 的回调方法，也可以使用字符串为所有表头单元格设置一个固定的 className。",
+                "type": "Function / string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "header-cell-style",
+                "description": "表头单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有表头单元格设置一样的 Style。",
+                "type": "Function / object",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "row-key",
+                "description": "行数据的 Key，用来优化 Table 的渲染； 在使用reserve-selection功能与显示树形数据时，该属性是必填的。 类型为 String 时，支持多层访问：user.info.id，但不支持 user.info[0].id，此种情况请使用 Function。",
+                "type": "function / string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "empty-text",
+                "description": "空数据时显示的文本内容， 也可以通过 #empty 设置",
+                "type": "string",
+                "default": "No Data",
+                "enumOptions": []
+              },
+              {
+                "name": "default-expand-all",
+                "description": "是否默认展开所有行，当 Table 包含展开行存在或者为树形表格时有效",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "expand-row-keys",
+                "description": "可以通过该属性设置 Table 目前的展开行，需要设置 row-key 属性才能使用，该属性为展开行的 keys 数组。",
+                "type": "array",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "default-sort",
+                "description": "默认的排序列的 prop 和顺序。 它的 prop 属性指定默认的排序的列，order 指定默认排序的顺序",
+                "type": "object",
+                "default": "如果设置了prop，但没有设置 order，那么 order将被默认设置为ascending",
+                "enumOptions": []
+              },
+              {
+                "name": "tooltip-effect",
+                "description": "溢出的 tooltip 的 effect",
+                "type": "enum",
+                "default": "dark",
+                "enumOptions": []
+              },
+              {
+                "name": "tooltip-options 2.2.28",
+                "description": "溢出 tooltip 的选项，参见下述 tooltip 组件",
+                "type": "object",
+                "default": "object",
+                "enumOptions": []
+              },
+              {
+                "name": "append-filter-panel-to 2.8.4",
+                "description": "挂载到哪个 DOM 元素",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "show-summary",
+                "description": "是否在表尾显示合计行",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "sum-text",
+                "description": "显示摘要行第一列的文本",
+                "type": "string",
+                "default": "Sum",
+                "enumOptions": []
+              },
+              {
+                "name": "summary-method",
+                "description": "自定义的合计计算方法",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "span-method",
+                "description": "合并行或列的计算方法",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "select-on-indeterminate",
+                "description": "在多选表格中，当仅有部分行被选中时，点击表头的多选框时的行为。 若为 true，则选中所有行；若为 false，则取消选择所有行",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "indent",
+                "description": "展示树形数据时，树节点的缩进",
+                "type": "number",
+                "default": "16",
+                "enumOptions": []
+              },
+              {
+                "name": "lazy",
+                "description": "是否懒加载子节点数据",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "load",
+                "description": "加载子节点数据的函数，lazy 为 true 时生效",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "tree-props",
+                "description": "渲染嵌套数据的配置选项",
+                "type": "object",
+                "default": "object",
+                "enumOptions": []
+              },
+              {
+                "name": "table-layout",
+                "description": "设置表格单元、行和列的布局方式",
+                "type": "enum",
+                "default": "fixed",
+                "enumOptions": []
+              },
+              {
+                "name": "scrollbar-always-on",
+                "description": "总是显示滚动条",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "show-overflow-tooltip",
+                "description": "是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示，详请参考tooltip-options",
+                "type": "boolean / object 2.3.7",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "flexible 2.2.1",
+                "description": "确保主轴的最小尺寸，以便不超过内容",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "scrollbar-tabindex 2.8.3",
+                "description": "body 的滚动条的包裹容器 tabindex",
+                "type": "string / number",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "allow-drag-last-column 2.9.2",
+                "description": "是否允许拖动最后一列",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "tooltip-formatter 2.9.4",
+                "description": "自定义 show-overflow-tooltip 时的 tooltip 内容",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "preserve-expanded-content 2.9.7",
+                "description": "在折叠后是否在DOM中保留展开行内容",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "native-scrollbar 2.10.5",
+                "description": "是否使用原生滚动条样式",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "row-expandable 2.13.2",
+                "description": "启用可展开行，当表格具有 type=\"expand\" 列时有效",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              }
+            ],
+            "events": [
+              {
+                "name": "select",
+                "description": "当用户手动勾选数据行的 Checkbox 时触发的事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "select-all",
+                "description": "当用户手动勾选全选 Checkbox 时触发的事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "selection-change",
+                "description": "当选择项发生变化时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "cell-mouse-enter",
+                "description": "当单元格 hover 进入时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "cell-mouse-leave",
+                "description": "当单元格 hover 退出时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "cell-click",
+                "description": "当某个单元格被点击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "cell-dblclick",
+                "description": "当某个单元格被双击击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "cell-contextmenu",
+                "description": "当某个单元格被鼠标右键点击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "row-click",
+                "description": "当某一行被点击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "row-contextmenu",
+                "description": "当某一行被鼠标右键点击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "row-dblclick",
+                "description": "当某一行被双击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "header-click",
+                "description": "当某一列的表头被点击时会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "header-contextmenu",
+                "description": "当某一列的表头被鼠标右键点击时触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "sort-change",
+                "description": "当表格的排序条件发生变化的时候会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "filter-change",
+                "description": "当表格的过滤条件发生变化的时候会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "current-change",
+                "description": "当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性",
+                "functionParams": "Function"
+              },
+              {
+                "name": "header-dragend",
+                "description": "当拖动表头改变了列的宽度的时候会触发该事件",
+                "functionParams": "Function"
+              },
+              {
+                "name": "expand-change",
+                "description": "当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）",
+                "functionParams": "Function"
+              },
+              {
+                "name": "scroll 2.9.0",
+                "description": "表格被用户滚动后触发",
+                "functionParams": "Function"
+              }
+            ],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义默认内容",
+                "props": "Table-column"
+              },
+              {
+                "name": "append",
+                "description": "插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上。",
+                "props": "—"
+              },
+              {
+                "name": "empty",
+                "description": "当数据为空时自定义的内容",
+                "props": "—"
+              }
+            ],
+            "methods": [
+              {
+                "name": "clearSelection",
+                "description": "用于多选表格，清空用户的选择",
+                "functionParams": "Function"
+              },
+              {
+                "name": "getSelectionRows",
+                "description": "返回当前选中的行",
+                "functionParams": "Function"
+              },
+              {
+                "name": "toggleRowSelection",
+                "description": "用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否",
+                "functionParams": "Function"
+              },
+              {
+                "name": "toggleAllSelection",
+                "description": "用于多选表格，切换全选和全不选",
+                "functionParams": "Function"
+              },
+              {
+                "name": "toggleRowExpansion",
+                "description": "用于可扩展的表格或树表格，如果某行被扩展，则切换。 使用第二个参数，您可以直接设置该行应该被扩展或折叠。",
+                "functionParams": "Function"
+              },
+              {
+                "name": "setCurrentRow",
+                "description": "用于单选表格，设定某一行为选中行， 如果调用时不加参数，则会取消目前高亮行的选中状态。",
+                "functionParams": "Function"
+              },
+              {
+                "name": "clearSort",
+                "description": "用于清空排序条件，数据会恢复成未排序的状态",
+                "functionParams": "Function"
+              },
+              {
+                "name": "clearFilter",
+                "description": "传入由columnKey 组成的数组以清除指定列的过滤条件。 如果没有参数，清除所有过滤器",
+                "functionParams": "Function"
+              },
+              {
+                "name": "doLayout",
+                "description": "对 Table 进行重新布局。 当表格可见性变化时，您可能需要调用此方法以获得正确的布局",
+                "functionParams": "Function"
+              },
+              {
+                "name": "sort",
+                "description": "手动排序表格。 参数 prop 属性指定排序列，order 指定排序顺序。",
+                "functionParams": "Function"
+              },
+              {
+                "name": "scrollTo",
+                "description": "滚动到一组特定坐标",
+                "functionParams": "Function"
+              },
+              {
+                "name": "setScrollTop",
+                "description": "设置垂直滚动位置",
+                "functionParams": "Function"
+              },
+              {
+                "name": "setScrollLeft",
+                "description": "设置水平滚动位置",
+                "functionParams": "Function"
+              },
+              {
+                "name": "columns 2.7.6",
+                "description": "获取表列的 context",
+                "functionParams": "array"
+              },
+              {
+                "name": "updateKeyChildren 2.8.4",
+                "description": "适用于 lazy Table, 需要设置 rowKey, 更新 key children",
+                "functionParams": "Function"
+              }
+            ],
+            "exposes": []
+          }
+        }
+      },
+      {
+        "name": "TableColumn 表格列",
+        "description": "表格列配置组件，用于定义表格的列属性，包括列类型、标题、数据字段、宽度、排序、过滤、对齐方式等。",
+        "components": {
+          "TableColumn": {
+            "properties": [
+              {
+                "name": "type",
+                "description": "对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置了 expand 则显示为一个可展开的按钮",
+                "type": "enum",
+                "default": "default",
+                "enumOptions": []
+              },
+              {
+                "name": "index",
+                "description": "如果设置了 type=index，可以通过传递 index 属性来自定义索引",
+                "type": "number / Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "label",
+                "description": "显示的标题",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "column-key",
+                "description": "column 的 key， column 的 key， 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "prop",
+                "description": "字段名称 对应列内容的字段名， 也可以使用 property属性",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "width",
+                "description": "对应列的宽度",
+                "type": "string / number",
+                "default": "''",
+                "enumOptions": []
+              },
+              {
+                "name": "min-width",
+                "description": "对应列的最小宽度， 对应列的最小宽度， 与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列",
+                "type": "string / number",
+                "default": "''",
+                "enumOptions": []
+              },
+              {
+                "name": "fixed",
+                "description": "列是否固定在左侧或者右侧。 true 表示固定在左侧",
+                "type": "enum / boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "render-header",
+                "description": "列标题 Label 区域渲染使用的 Function",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "sortable",
+                "description": "对应列是否可以排序， 如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件",
+                "type": "boolean / string",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "sort-method",
+                "description": "指定数据按照哪个属性进行排序，仅当sortable设置为true的时候有效。 应该如同 Array.sort 那样返回一个 Number",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "sort-by",
+                "description": "指定数据按照哪个属性进行排序，仅当 sortable 设置为 true 且没有设置 sort-method 的时候有效。 如果 sort-by 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推",
+                "type": "Function / string / array",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "sort-orders",
+                "description": "数据在排序时所使用排序策略的轮转顺序，仅当 sortable 为 true 时有效。 需传入一个数组，随着用户点击表头，该列依次按照数组中元素的顺序进行排序",
+                "type": "object",
+                "default": "['ascending', 'descending', null]",
+                "enumOptions": []
+              },
+              {
+                "name": "resizable",
+                "description": "对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "formatter",
+                "description": "用来格式化内容",
+                "type": "function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "show-overflow-tooltip",
+                "description": "当内容过长被隐藏时显示 tooltip",
+                "type": "boolean / object 2.2.28",
+                "default": "undefined",
+                "enumOptions": []
+              },
+              {
+                "name": "align",
+                "description": "对齐方式",
+                "type": "enum",
+                "default": "left",
+                "enumOptions": []
+              },
+              {
+                "name": "header-align",
+                "description": "表头对齐方式， 若不设置该项，则使用表格的对齐方式",
+                "type": "enum",
+                "default": "left",
+                "enumOptions": []
+              },
+              {
+                "name": "class-name",
+                "description": "列的 className",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "label-class-name",
+                "description": "当前列标题的自定义类名",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "selectable",
+                "description": "仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "reserve-selection",
+                "description": "数据刷新后是否保留选项，仅对 type=selection 的列有效， 请注意， 需指定 row-key 来让这个功能生效。",
+                "type": "boolean",
+                "default": "false",
+                "enumOptions": []
+              },
+              {
+                "name": "filters",
+                "description": "数据过滤的选项， 数组格式，数组中的元素需要有 text 和 value 属性。 数组中的每个元素都需要有 text 和 value 属性。",
+                "type": "array",
+                "default": ":::",
+                "enumOptions": []
+              },
+              {
+                "name": "filter-placement",
+                "description": "过滤弹出框的定位",
+                "type": "enum",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "filter-class-name 2.5.0",
+                "description": "过滤弹出框的 className",
+                "type": "string",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "filter-multiple",
+                "description": "数据过滤的选项是否多选",
+                "type": "boolean",
+                "default": "true",
+                "enumOptions": []
+              },
+              {
+                "name": "filter-method",
+                "description": "数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。",
+                "type": "function",
+                "default": ":::",
+                "enumOptions": []
+              },
+              {
+                "name": "filtered-value",
+                "description": "选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。",
+                "type": "array",
+                "default": "—",
+                "enumOptions": []
+              },
+              {
+                "name": "tooltip-formatter 2.9.4",
+                "description": "使用 show-overflow-tooltip 时自定义 tooltip 内容",
+                "type": "Function",
+                "default": "—",
+                "enumOptions": []
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "default",
+                "description": "自定义列的内容",
+                "props": "object"
+              },
+              {
+                "name": "header",
+                "description": "自定义表头的内容，",
+                "props": "object"
+              },
+              {
+                "name": "filter-icon 2.7.8",
+                "description": "自定义 filter 图标",
+                "props": "object"
+              },
+              {
+                "name": "expand 2.10.0",
+                "description": "展开列的自定义内容 从 v2.13.2 开始支持 expandable 属性。",
+                "props": "object"
+              }
+            ],
+            "methods": [],
+            "exposes": []
+          }
+        }
+      }
+    ]
+  }
+]
