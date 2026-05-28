@@ -148,6 +148,35 @@ precision/recall/F1 + missing/extra 明细 + micro 平均整体分）、`eval/go
 源码 = 代码实际定义的全部 props（含内部）；URL = 作者公开承诺的 API 表面（含被
 父组件揉进来的子组件属性，不含原生事件）。这两个视角对低代码物料导入这种"按
 公开 API 来"的场景有真实价值：URL 路径更接近用户预期，源码路径用于交叉验证。
+
+### 三方对照 + 真实 F1（vs 官方文档 ground truth）
+
+新增 `eval/scrape-doc-truth.js`（Puppeteer 直接抓 element-plus 文档表格、不调 LLM）+
+`eval/compare-3way.js`（用 score.js 算 F1）。**关键步骤：归一化命名规范**（camelCase →
+kebab-case、剥版本号尾巴），不然源码侧 ~0.5 的 F1 几乎全是 `nativeType vs native-type` 这种
+约定差异、毫无信号。
+
+| 组件 | source F1 (raw) | **source F1 (norm)** | url F1 (raw) | **url F1 (norm)** |
+| --- | --- | --- | --- | --- |
+| button | 0.622 | 0.978 | 1.000 | 1.000 |
+| input | 0.653 | 0.911 | 1.000 | 1.000 |
+| select | 0.344 | **0.793** | 0.979 | 0.986 |
+| form | 0.389 | 1.000 | 0.944 | 1.000 |
+| table | 0.438 | 0.978 | 1.000 | 1.000 |
+| **avg** | 0.490 | **0.932** | 0.985 | **0.997** |
+
+**真信号**：
+- URL 路径几乎完美（avg 0.997）——直接读文档表格，跟 ground truth 同源；
+- 源码路径 **avg 0.932，最低 Select 0.793**——揭示**模型在 props 多、有 withDefaults
+  / inherited 链路复杂的组件上 recall 会掉**。Select 漏抽了 22 个 props（loading-text /
+  no-match-text / popper-options / effect 等）；
+- 残余 "false errors" 几乎全是合理的——`v-model` 别名（truth 写成 `model-value / v-model`
+  组合行）、`update:modelValue` 隐式事件、原生 `click`、Table 把 HTML 通用属性也算上了
+  （`width/class-name/style`）；
+- 提交 `3461776`。
+
+**下一步可改方向**（也是简历可讲的"分析→改进闭环"）：复杂 .ts 文件走 ts-morph 真 AST，把
+`withDefaults` / inheritance 链路展开后再喂给 LLM，应该能把 Select 这种瓶颈点抬上去。
 跑通过程中顺手修了两个真 bug —— `dotenv` 默认不覆盖 shell 已有 env 导致 .env 的 key 被
 同名旧变量盖住，以及 scorer 把 apiJson 的嵌套结构（`components.<Name>.{properties,...}`）
 当作扁平结构读导致 F1 错算为 0（提交 `a2e1853`）。样本量极小，是初步信号而非统计结论；
