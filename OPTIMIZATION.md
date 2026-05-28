@@ -170,4 +170,4 @@ tempDir 内，任一条目逃逸（`../` / 绝对路径）则拒绝整个压缩�
 ### 其它已知待加固项
 - [x] ZIP 解压 Zip Slip 路径穿越防护：已落地（见 Changelog）。
 - [x] `convertor.js` 的 schema 转换批次 `Promise.all` → `allSettled` + 单组件重试/软失败：已落地（见 Changelog）。
-- [ ] 依赖冗余：`langchain` / `sequelize` / `sql.js` 装了未用或半用。
+- [x] 依赖冗余：已移除 `langchain` / `sequelize` / `sql.js`（共 42 个传递包），并把原本隐性依赖 sequelize 树的 `uuid` 提升为直接依赖（提交 `d314575`）。
