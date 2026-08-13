@@ -1,6 +1,6 @@
 const os = require('os');
 const fs = require("fs");
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const path = require('path');
 require('dotenv').config({
   path: path.resolve(__dirname, '../../.env')
@@ -804,7 +804,7 @@ async function filterAndConcatNpmApiByPackage(packageName, componentName, { sign
     console.log(`⚠️ 未在 ${nodeModulesPath} 中找到包 ${packageName}，开始自动安装...`);
     try {
       // 执行npm install命令（在backend根目录下安装，--save-dev可根据需求改为--save）
-      execSync('npm', ['install', packageName, '--save-dev'], {
+      execFileSync('npm', ['install', packageName, '--save-dev'], {
         cwd: projectRoot, // 执行目录：backend根目录（确保node_modules在此目录下）
         stdio: 'inherit'  // 输出安装日志到控制台，便于用户查看进度
       });
